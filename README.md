@@ -1,4 +1,8 @@
-# Lernlabor Datenstrukturen Q1.4 – Ausbau V5
+# Lernlabor Q1.4 – V5.1 parallel zum Wiki
+
+Verbindliche Ausgangsbasis: lernlabor-datenstrukturen-q1-4-navigation(1).zip.
+
+Die 28 ursprünglichen Stationen behalten Reihenfolge, Themenzuordnung, Wiki-Verweise, Titel, Aufgabenstellungen und Codevorlagen. „Alle Wiki-Stationen“ und die Themenreiter enthalten ausschließlich diese Stationen. Fünf ergänzende Aufgaben stehen getrennt unter „Zusatzaufgaben (optional)“; sie sind keine zusätzlichen Wiki-Pflichtaufgaben. Start- und Abschlusscheck bleiben separat. Die Übereinstimmung wurde mit der gelieferten ZIP geprüft; die Wiki-Seiten selbst lagen nicht vor.
 
 33 Stationen mit freier Navigation. index.html öffnen oder alle Dateien gemeinsam in GitHub Pages bereitstellen. Keine Installation, keine externen Abhängigkeiten.
 
