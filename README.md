@@ -16,3 +16,6 @@ Browserbasiertes Lernlabor passend zu den Wiki-Seiten Q1.4.
 `index.html` direkt im Browser öffnen oder den Ordner als GitHub-Pages-Inhalt veröffentlichen.
 
 Die Java-Umgebung ist bewusst kontrolliert: Sie führt keinen beliebigen Java-Code aus, sondern prüft die für die Aufgaben relevanten Struktur- und Algorithmusmuster. Dadurch funktioniert das Lernlabor vollständig clientseitig ohne Server.
+
+## Freie Navigation
+Alle Themenbuttons sind jederzeit anklickbar, auch aus den Diagnoseansichten. Die Auswahl „Direkt zur Aufgabe“ öffnet jede Aufgabe des gewählten Bereichs ohne Vorbedingungen. Der aktuelle Bereich ist blau markiert. Arbeitsergebnisse im Editor werden weiterhin nicht dauerhaft gespeichert.
