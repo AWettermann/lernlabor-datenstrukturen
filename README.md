@@ -23,3 +23,7 @@ Arbeitsstände bleiben im jeweiligen Browserprofil und auf diesem Gerät; für G
 
 ## Prüfung dieser Fassung
 JavaScript-Syntaxprüfung aller Skripte; automatisierte Logikprüfung für Wiederherstellung der Eingaben, Musterlösungen, falsche Traversierungsreihenfolge, auskommentierte Lösungen und veränderte Modellzustände. Eine vollständige visuelle Browserprüfung konnte in der Erstellungsumgebung mangels installiertem Browser nicht durchgeführt werden.
+
+
+## Reihenabschluss 1.4.1
+Die letzte Listen-Station enthält die zusammenhängende Abschlussaufgabe Paketlager mit Pflichtteil, optionalem sortiertem Einfügen, Testauftrag und vier gestuften Hilfen. Die offene Aufgabe wird per Selbstvergleich beurteilt; Java-Code wird weiterhin nicht ausgeführt.
