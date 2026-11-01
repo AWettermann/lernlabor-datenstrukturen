@@ -1,3 +1,9 @@
+# V5.2 – Methodenverzeichnis
+
+Links neben Aufgabe und Editor steht ein aufgabenbezogenes, beim Scrollen sichtbares Methodenverzeichnis. Es zeigt Signaturen, Kurzbeschreibungen und Aufrufbeispiele sowie gesondert die selbst zu entwickelnden Methoden. Auf schmalen Geräten erscheint es oberhalb der Aufgabe.
+
+Alle 33 Stationen und die Wiki-Reihenfolge bleiben erhalten. Bestehende lokale Arbeitsstände und Exportdateien sind kompatibel. Methodenwechsel und unveränderte Aufgaben wurden automatisch geprüft. Eine visuelle Browserprüfung war mangels Browser nicht möglich.
+
 # Lernlabor Q1.4 – V5.1 parallel zum Wiki
 
 Verbindliche Ausgangsbasis: lernlabor-datenstrukturen-q1-4-navigation(1).zip.
@@ -23,7 +29,3 @@ Arbeitsstände bleiben im jeweiligen Browserprofil und auf diesem Gerät; für G
 
 ## Prüfung dieser Fassung
 JavaScript-Syntaxprüfung aller Skripte; automatisierte Logikprüfung für Wiederherstellung der Eingaben, Musterlösungen, falsche Traversierungsreihenfolge, auskommentierte Lösungen und veränderte Modellzustände. Eine vollständige visuelle Browserprüfung konnte in der Erstellungsumgebung mangels installiertem Browser nicht durchgeführt werden.
-
-
-## Reihenabschluss 1.4.1
-Die letzte Listen-Station enthält die zusammenhängende Abschlussaufgabe Paketlager mit Pflichtteil, optionalem sortiertem Einfügen, Testauftrag und vier gestuften Hilfen. Die offene Aufgabe wird per Selbstvergleich beurteilt; Java-Code wird weiterhin nicht ausgeführt.
