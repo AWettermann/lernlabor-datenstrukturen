@@ -1,0 +1,10 @@
+'use strict';
+require('../java-subset.js');
+require('../functional-cases.js');
+require('../java-classes.js');
+require('../class-cases.js');
+require('../trie-cases.js');
+require('../assessment.js');
+require('../diagnostic-model.js');
+const tasks=require('../tasks.js');
+module.exports={tasks,Assessment:globalThis.Assessment,J:globalThis.JavaSubset,Diagnostic:globalThis.Diagnostic};

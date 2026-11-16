@@ -42,4 +42,8 @@ Alle 64 Lernstationen besitzen bestandene Funktionstests bzw. formatbezogene Tes
 
 Die Anwendung besteht aus HTML, CSS und klassischen JavaScript-Dateien mit relativen Pfaden. Sie benötigt weder Backend noch Buildschritt, CDN oder externe Laufzeitabhängigkeiten. Alle Dateien im Projektstamm gehören zur Anwendung. `docs/`, `tests/` und `package.json` dienen der lokalen Prüfung und Dokumentation.
 
-Es wurde kein Push und kein Deployment ausgeführt.
+Live-Adresse: [Lernlabor Datenstrukturen Q1.4](https://awettermann.github.io/lernlabor-datenstrukturen/). Die Veröffentlichungsprüfung und den Abgleich mit dem Repository dokumentiert [VEROEFFENTLICHUNG-PRUEFUNG.md](docs/VEROEFFENTLICHUNG-PRUEFUNG.md).
+
+Die Datei `.nojekyll` stellt die unveränderte statische Auslieferung von HTML, CSS, JavaScript und Prüfberichten sicher. Mit `node tests/verify-pages.js https://awettermann.github.io/lernlabor-datenstrukturen/ <commit-sha>` lassen sich die veröffentlichten Anwendungsdateien gegen diesen Checkout prüfen.
+
+Für Umgebungen mit wenig freiem Speicher kann `Q14_SCREENSHOTS=0 npm run test:browser` verwendet werden. Alle Browserprüfungen bleiben aktiv; lediglich neue Screenshots werden nicht gespeichert.

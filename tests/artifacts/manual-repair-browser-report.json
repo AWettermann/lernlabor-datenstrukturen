@@ -1,0 +1,34 @@
+{
+  "passed": 22,
+  "captureScreenshots": false,
+  "jsErrors": 0,
+  "stations": 64,
+  "automaticallyConfirmed": 64,
+  "manualStations": 0,
+  "previousUiEngineUnchanged": {
+    "tasks.js": false,
+    "assessment.js": false,
+    "java-subset.js": false,
+    "functional-cases.js": true,
+    "diagnostic-model.js": true,
+    "storage.js": true
+  },
+  "layoutUnchanged": true,
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.40",
+    "revision": "@6f75a8afa26ce5537c82b4887f152dfdc7183e05",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.23"
+  },
+  "viewports": [
+    1280,
+    1440,
+    1920,
+    1024,
+    834,
+    768,
+    390,
+    320
+  ]
+}

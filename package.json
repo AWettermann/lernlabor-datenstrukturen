@@ -6,7 +6,10 @@
   "scripts": {
     "test": "node --test tests/assessment.test.js tests/manual-repair.test.js tests/diagnostic.test.js tests/storage.test.js",
     "test:browser": "node tests/browser-test.js",
-    "audit": "node tests/audit.js"
+    "audit": "node tests/audit.js",
+    "verify:pages": "node tests/verify-pages.js"
   },
-  "engines": { "node": ">=22" }
+  "engines": {
+    "node": ">=22"
+  }
 }
