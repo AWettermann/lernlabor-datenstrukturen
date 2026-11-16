@@ -1,0 +1,12 @@
+{
+  "name": "lernlabor-q14",
+  "version": "8.0.0",
+  "private": true,
+  "description": "Statisches Lernlabor mit begrenzter funktionaler Java-Prüfung",
+  "scripts": {
+    "test": "node --test tests/assessment.test.js tests/manual-repair.test.js tests/diagnostic.test.js tests/storage.test.js",
+    "test:browser": "node tests/browser-test.js",
+    "audit": "node tests/audit.js"
+  },
+  "engines": { "node": ">=22" }
+}

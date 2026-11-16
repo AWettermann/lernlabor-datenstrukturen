@@ -1,211 +1,202 @@
-const tasks=[
-{kind:'list',wiki:'Aufgabe 8',topic:'WIKI 4 · LINEARE LISTE · KNOTEN',title:'Aufgabe 8 – Die Klasse Knoten entwickeln',desc:'Implementieren Sie die Klasse <code>Knoten</code>. Ein Knoten speichert ein <code>Paket</code> und eine Referenz auf den nächsten Knoten.',start:['P100','P200','P300'],code:`public class Knoten {\n    private Paket paket;\n    private Knoten naechster;\n\n    public Knoten(Paket paket) {\n        // Ihr Code\n    }\n\n    public Paket getPaket() {\n        // Ihr Code\n    }\n\n    public Knoten getNaechster() {\n        // Ihr Code\n    }\n\n    public void setNaechster(Knoten naechster) {\n        // Ihr Code\n    }\n}`,expect:'nodeclass',solution:`public class Knoten {\n    private Paket paket;\n    private Knoten naechster;\n\n    public Knoten(Paket paket) {\n        this.paket = paket;\n        this.naechster = null;\n    }\n\n    public Paket getPaket() {\n        return paket;\n    }\n\n    public Knoten getNaechster() {\n        return naechster;\n    }\n\n    public void setNaechster(Knoten naechster) {\n        this.naechster = naechster;\n    }\n}`,hints:['Welche zwei Informationen muss ein Knoten speichern?','Ein neuer Knoten hat zunächst noch keinen Nachfolger.','Die Getter geben Nutzdaten bzw. Nachfolger zurück; der Setter verändert nur die Nachfolgerreferenz.',`this.paket = paket;\nthis.naechster = null;`]},
-{kind:'list',wiki:'Aufgabe 12',topic:'WIKI 7 · LINEARE LISTE · TRAVERSIEREN',title:'Aufgabe 12 – Traversieren einer linearen Liste',desc:'Implementieren Sie die Traversierungsmethoden <code>anzahlPakete()</code>, <code>gesamtGewicht()</code>, <code>zaehlePaketeNach(String zielort)</code> und <code>suchePaket(String paketnummer)</code>.',start:['P100','P200','P300','P400'],code:`public int anzahlPakete() {\n    // Ihr Code\n}\n\npublic double gesamtGewicht() {\n    // Ihr Code\n}\n\npublic int zaehlePaketeNach(String zielort) {\n    // Ihr Code\n}\n\npublic Paket suchePaket(String paketnummer) {\n    // Ihr Code\n}`,expect:'traverse',solution:`public int anzahlPakete() {\n    int anzahl = 0;\n    Knoten aktuell = erster;\n    while (aktuell != null) {\n        anzahl++;\n        aktuell = aktuell.getNaechster();\n    }\n    return anzahl;\n}\n\npublic double gesamtGewicht() {\n    double summe = 0;\n    Knoten aktuell = erster;\n    while (aktuell != null) {\n        summe += aktuell.getPaket().getGewicht();\n        aktuell = aktuell.getNaechster();\n    }\n    return summe;\n}\n\npublic int zaehlePaketeNach(String zielort) {\n    int anzahl = 0;\n    Knoten aktuell = erster;\n    while (aktuell != null) {\n        if (aktuell.getPaket().getZielort().equals(zielort)) anzahl++;\n        aktuell = aktuell.getNaechster();\n    }\n    return anzahl;\n}\n\npublic Paket suchePaket(String paketnummer) {\n    Knoten aktuell = erster;\n    while (aktuell != null) {\n        if (aktuell.getPaket().getPaketnummer().equals(paketnummer)) return aktuell.getPaket();\n        aktuell = aktuell.getNaechster();\n    }\n    return null;\n}`,hints:['Alle vier Methoden benötigen dasselbe Grundmuster: eine Laufreferenz vom ersten Knoten bis null.','Start: Knoten aktuell = erster; Bedingung: while (aktuell != null).','Vergessen Sie am Ende eines Schleifendurchlaufs nicht: aktuell = aktuell.getNaechster();','Bei der Suche kann sofort zurückgegeben werden, sobald die Paketnummer übereinstimmt.']},
-{kind:'list',wiki:'Aufgabe 13',topic:'WIKI 9 · LINEARE LISTE · EINFÜGEN',title:'Aufgabe 13 – Einen Knoten einfügen',desc:'Implementieren Sie <code>public void einfuegenNach(Knoten aktuell, Paket paket)</code>. Der neue Knoten soll direkt hinter <code>aktuell</code> eingefügt werden.',start:['P100','P200','P300'],code:`public void einfuegenNach(Knoten aktuell, Paket paket) {\n    // Ihr Code\n}`,expect:'insertAfter',solution:`public void einfuegenNach(Knoten aktuell, Paket paket) {\n    if (aktuell == null) return;\n    Knoten neu = new Knoten(paket);\n    neu.setNaechster(aktuell.getNaechster());\n    aktuell.setNaechster(neu);\n}`,hints:['Die bisherige Verbindung hinter aktuell darf nicht verloren gehen.','Der neue Knoten muss zuerst auf den bisherigen Nachfolger zeigen.','Erst danach darf aktuell auf neu umgehängt werden.',`Knoten neu = new Knoten(paket);\nneu.setNaechster(aktuell.getNaechster());\naktuell.setNaechster(____);`]},
-{kind:'list',wiki:'Aufgabe 14',topic:'WIKI 9 · LINEARE LISTE · VORNE EINFÜGEN',title:'Aufgabe 14 – Am Anfang einfügen',desc:'Implementieren Sie <code>public void vorneEinfuegen(Paket paket)</code>. Das neue Paket soll zum ersten Element der Liste werden.',start:['P100','P200','P300'],code:`public void vorneEinfuegen(Paket paket) {\n    // Ihr Code\n}`,expect:'insertFront',solution:`public void vorneEinfuegen(Paket paket) {\n    Knoten neu = new Knoten(paket);\n    neu.setNaechster(erster);\n    erster = neu;\n}`,hints:['Welche Referenz bezeichnet den Anfang der Liste?','Der neue Knoten muss auf den bisherigen ersten Knoten zeigen.','Danach wird erster auf den neuen Knoten gesetzt.',`Knoten neu = new Knoten(paket);\nneu.setNaechster(____);\n____ = neu;`]},
-{kind:'list',wiki:'Aufgabe 16',topic:'WIKI 10 · LINEARE LISTE · ERSTES ELEMENT LÖSCHEN',title:'Aufgabe 16 – Das erste Element löschen',desc:'Entwickeln Sie die Referenzänderung zum Löschen des ersten Elements. Die Methode soll bei einer leeren Liste sicher funktionieren.',start:['P100','P200','P300'],code:`public boolean erstesLoeschen() {\n    // Ihr Code\n}`,expect:'deleteFirst',solution:`public boolean erstesLoeschen() {\n    if (erster == null) {\n        return false;\n    }\n    erster = erster.getNaechster();\n    return true;\n}`,hints:['Was muss bei einer leeren Liste passieren?','Zum Löschen des ersten Knotens ist kein Durchlaufen nötig.','erster muss auf den Nachfolger des bisherigen ersten Knotens zeigen.',`if (erster == null) return false;\nerster = __________;\nreturn true;`]},
-{kind:'list',wiki:'Aufgabe 17',topic:'WIKI 10 · LINEARE LISTE · LÖSCHALGORITHMUS',title:'Aufgabe 17 – Algorithmus entwickeln',desc:'Implementieren Sie <code>public boolean loeschePaket(String paketnummer)</code>. Berücksichtigen Sie leere Liste, erstes Element, Element innerhalb der Liste und „nicht gefunden“.',start:['P100','P200','P300','P400'],code:`public boolean loeschePaket(String paketnummer) {\n    // Ihr Code\n}`,expect:'deleteSearch',solution:`public boolean loeschePaket(String paketnummer) {\n    Knoten vorher = null;\n    Knoten aktuell = erster;\n\n    while (aktuell != null) {\n        if (aktuell.getPaket().getPaketnummer().equals(paketnummer)) {\n            if (vorher == null) {\n                erster = aktuell.getNaechster();\n            } else {\n                vorher.setNaechster(aktuell.getNaechster());\n            }\n            return true;\n        }\n        vorher = aktuell;\n        aktuell = aktuell.getNaechster();\n    }\n    return false;\n}`,hints:['Sie benötigen beim Durchlaufen zwei Referenzen: aktuell und vorher.','vorher == null bedeutet: Das gefundene Paket ist das erste Element.','Innerhalb der Liste muss vorher den Nachfolger von aktuell übernehmen.','Nach jedem erfolglosen Vergleich: vorher = aktuell; aktuell = aktuell.getNaechster();']},
-{kind:'list',wiki:'Aufgabe 19',topic:'WIKI 11 · LINEARE LISTE · AKTUALISIEREN',title:'Aufgabe 19 – Aktualisieren',desc:'Implementieren Sie <code>public boolean aktualisiereStatus(String paketnummer, String neuerStatus)</code>. Die Referenzstruktur der Liste soll dabei unverändert bleiben.',start:['P100','P200','P300'],code:`public boolean aktualisiereStatus(String paketnummer, String neuerStatus) {\n    // Ihr Code\n}`,expect:'updatePayload',solution:`public boolean aktualisiereStatus(String paketnummer, String neuerStatus) {\n    Knoten aktuell = erster;\n    while (aktuell != null) {\n        if (aktuell.getPaket().getPaketnummer().equals(paketnummer)) {\n            aktuell.getPaket().setStatus(neuerStatus);\n            return true;\n        }\n        aktuell = aktuell.getNaechster();\n    }\n    return false;\n}`,hints:['Gesucht wird ein Paket – nicht ein Knoten zum Umhängen.','Durchlaufen Sie die Liste bis die Paketnummer übereinstimmt.','Ändern Sie anschließend nur die Nutzdaten des Paket-Objekts.','Kein setNaechster() ist nötig. Verwenden Sie setStatus(neuerStatus).']},
-{kind:'list',wiki:'Aufgabe 26',topic:'ABSCHLUSSAUFGABE · PRIORITÄTSLAGER',title:'Aufgabe 26 – Sortiert einfügen',desc:'Implementieren Sie <code>sortiertEinfuegen(Paket paket)</code> für das dynamische Prioritätslager. Die Liste soll nach dem vorgegebenen Sortierkriterium geordnet bleiben.',start:['P100','P200','P300'],code:`public void sortiertEinfuegen(Paket paket) {\n    // Ihr Code\n}`,expect:'sortedInsert',solution:`public void sortiertEinfuegen(Paket paket) {\n    Knoten neu = new Knoten(paket);\n\n    if (erster == null || paket.getGewicht() < erster.getPaket().getGewicht()) {\n        neu.setNaechster(erster);\n        erster = neu;\n        return;\n    }\n\n    Knoten aktuell = erster;\n    while (aktuell.getNaechster() != null &&\n           aktuell.getNaechster().getPaket().getGewicht() <= paket.getGewicht()) {\n        aktuell = aktuell.getNaechster();\n    }\n\n    neu.setNaechster(aktuell.getNaechster());\n    aktuell.setNaechster(neu);\n}`,hints:['Zuerst muss die richtige Einfügeposition gefunden werden.','Behandeln Sie die leere Liste und das Einfügen vor dem ersten Element als Sonderfall.','Laufen Sie so lange weiter, wie der nächste Knoten noch vor das neue Paket gehört.','Beim eigentlichen Einfügen gilt wieder: neu zuerst mit dem bisherigen Nachfolger verbinden, danach aktuell auf neu setzen.']},
-{kind:'stack',wiki:'Aufgabe 3',topic:'WIKI 13 · STACK · PUSH',title:'Aufgabe 3 – `push()` entwickeln',desc:'Das Paket <code>P400</code> soll auf den Stack gelegt werden. <strong>d)</strong> Implementieren Sie anschließend <code>public void push(Paket paket)</code>.',start:['P300','P200','P100'],code:`public void push(Paket paket) {\n    // Ihr Code\n}`,expect:'push',solution:`public void push(Paket paket) {
-    Knoten neu = new Knoten(paket);
-    neu.setNaechster(oben);
-    oben = neu;
-}`,hints:['Welche Referenz muss nach push() auf den neuen Knoten zeigen?','Der neue Knoten muss zuerst auf das bisherige oberste Element zeigen.','Pseudocode: Knoten erzeugen → Nachfolger auf oben setzen → oben auf neuen Knoten setzen.',`Knoten neu = new Knoten(paket);\nneu.setNaechster(________);\n________ = neu;`]},
-{kind:'stack',wiki:'Aufgabe 4',topic:'WIKI 13 · STACK · POP',title:'Aufgabe 4 – `pop()` entwickeln',desc:'Das oberste Paket soll entnommen werden. <strong>d)</strong> Implementieren Sie <code>public Paket pop()</code>. Für einen leeren Stack soll <code>null</code> zurückgegeben werden.',start:['P300','P200','P100'],code:`public Paket pop() {\n    // Ihr Code\n}`,expect:'pop',solution:`public Paket pop() {
-    if (oben == null) {
-        return null;
-    }
-    Paket paket = oben.getPaket();
-    oben = oben.getNaechster();
-    return paket;
-}`,hints:['Was muss passieren, wenn oben == null ist?','Speichern Sie das Paket des obersten Knotens, bevor Sie die Referenz verändern.','Pseudocode: leer? → Paket merken → oben auf Nachfolger setzen → Paket zurückgeben.',`if (oben == null) return null;\nPaket paket = oben.getPaket();\noben = __________;\nreturn paket;`]},
-{kind:'stack',wiki:'Aufgabe 5',topic:'WIKI 13 · STACK · KLASSE',title:'Aufgabe 5 – Stack vervollständigen',desc:'Implementieren Sie die gesamte Klasse <code>PaketStapel</code>. Berücksichtigen Sie insbesondere den leeren Stack.',start:['P300','P200'],code:`public class PaketStapel {\n\n    private Knoten oben;\n\n    public PaketStapel() {\n        oben = null;\n    }\n\n    public void push(Paket paket) {\n        // ...\n    }\n\n    public Paket pop() {\n        // ...\n    }\n\n    public Paket peek() {\n        // ...\n    }\n\n    public boolean isEmpty() {\n        // ...\n    }\n}`,expect:'stackclass',solution:`public class PaketStapel {
-    private Knoten oben;
-
-    public PaketStapel() {
-        oben = null;
-    }
-
-    public void push(Paket paket) {
-        Knoten neu = new Knoten(paket);
-        neu.setNaechster(oben);
-        oben = neu;
-    }
-
-    public Paket pop() {
-        if (oben == null) return null;
-        Paket paket = oben.getPaket();
-        oben = oben.getNaechster();
-        return paket;
-    }
-
-    public Paket peek() {
-        if (oben == null) return null;
-        return oben.getPaket();
-    }
-
-    public boolean isEmpty() {
-        return oben == null;
-    }
-}`,hints:['Beginnen Sie mit push() und pop(). Beide verändern nur die Referenz oben.','peek() darf den Stack nicht verändern. isEmpty() benötigt nur einen Vergleich.','Prüfen Sie bei pop() und peek() jeweils den leeren Stack.','Verwenden Sie bei push(): neu.setNaechster(oben); oben = neu; und behandeln Sie bei pop()/peek() oben == null.']},
-{kind:'queue',wiki:'Aufgabe 11',topic:'WIKI 18 · QUEUE · ENQUEUE',title:'Aufgabe 11 – `enqueue()` entwickeln',desc:'Ein neues Paket soll hinten eingefügt werden. <strong>d)</strong> Implementieren Sie unter Berücksichtigung der leeren und der nicht leeren Queue <code>public void enqueue(Paket paket)</code>.',start:['P100','P200','P300'],code:`public void enqueue(Paket paket) {\n    // Ihr Code\n}`,expect:'enqueue',solution:`public void enqueue(Paket paket) {
-    Knoten neu = new Knoten(paket);
-    if (vorne == null) {
-        vorne = neu;
-        hinten = neu;
-    } else {
-        hinten.setNaechster(neu);
-        hinten = neu;
-    }
-}`,hints:['Was ist bei einer leeren Queue besonders?','Nach dem ersten enqueue() müssen vorne und hinten auf denselben Knoten zeigen.','Nicht leer: hinten.setNaechster(neu), danach hinten = neu. Leer: vorne = neu und hinten = neu.',`Knoten neu = new Knoten(paket);\nif (vorne == null) {\n    vorne = neu;\n    ______ = neu;\n} else {\n    hinten.setNaechster(neu);\n    ______ = neu;\n}`]},
-{kind:'queue',wiki:'Aufgabe 13',topic:'WIKI 19 · QUEUE · DEQUEUE',title:'Aufgabe 13 – Sonderfall analysieren',desc:'Entwickeln Sie eine vollständige Methode <code>public Paket dequeue()</code>. Berücksichtigen Sie: leere Queue, Queue mit genau einem Element und Queue mit mehreren Elementen.',start:['P100','P200','P300'],code:`public Paket dequeue() {\n    // Ihr Code\n}`,expect:'dequeue',solution:`public Paket dequeue() {
-    if (vorne == null) {
-        return null;
-    }
-    Paket paket = vorne.getPaket();
-    vorne = vorne.getNaechster();
-    if (vorne == null) {
-        hinten = null;
-    }
-    return paket;
-}`,hints:['Was muss bei einer leeren Queue passieren?','Nach dem Entfernen des letzten Elements ist vorne null. Welchen Wert muss dann hinten haben?','Pseudocode: leer? → Paket merken → vorne weitersetzen → falls vorne null: hinten null → Paket zurückgeben.',`if (vorne == null) return null;\nPaket paket = vorne.getPaket();\nvorne = vorne.getNaechster();\nif (vorne == null) ______ = null;\nreturn paket;`]},
-{kind:'queue',wiki:'Aufgabe 14',topic:'WIKI 20 · QUEUE · KLASSE',title:'Aufgabe 14 – Klasse vervollständigen',desc:'Implementieren Sie die vollständige Klasse <code>PaketWarteschlange</code> mit <code>enqueue()</code>, <code>dequeue()</code>, <code>front()</code> und <code>isEmpty()</code>.',start:['P100','P200'],code:`public class PaketWarteschlange {\n\n    private Knoten vorne;\n    private Knoten hinten;\n\n    public PaketWarteschlange() {\n        vorne = null;\n        hinten = null;\n    }\n\n    public void enqueue(Paket paket) {\n        // ...\n    }\n\n    public Paket dequeue() {\n        // ...\n    }\n\n    public Paket front() {\n        // ...\n    }\n\n    public boolean isEmpty() {\n        // ...\n    }\n}`,expect:'queueclass',solution:`public class PaketWarteschlange {
-    private Knoten vorne;
-    private Knoten hinten;
-
-    public PaketWarteschlange() {
-        vorne = null;
-        hinten = null;
-    }
-
-    public void enqueue(Paket paket) {
-        Knoten neu = new Knoten(paket);
-        if (vorne == null) {
-            vorne = neu;
-            hinten = neu;
-        } else {
-            hinten.setNaechster(neu);
-            hinten = neu;
-        }
-    }
-
-    public Paket dequeue() {
-        if (vorne == null) return null;
-        Paket paket = vorne.getPaket();
-        vorne = vorne.getNaechster();
-        if (vorne == null) hinten = null;
-        return paket;
-    }
-
-    public Paket front() {
-        if (vorne == null) return null;
-        return vorne.getPaket();
-    }
-
-    public boolean isEmpty() {
-        return vorne == null;
-    }
-}`,hints:['Implementieren Sie zuerst enqueue() und behandeln Sie die leere Queue gesondert.','Bei dequeue() muss nach dem Entfernen des letzten Elements auch hinten = null gelten.','front() liest nur das vorderste Paket; isEmpty() prüft, ob vorne null ist.','Testen Sie gedanklich: erstes Element einfügen → letztes Element entfernen → erneut einfügen.']},
-{kind:'queue',wiki:'Aufgabe 15',topic:'WIKI 20 · QUEUE · TESTEN',title:'Aufgabe 15 – Zustände nachvollziehen',desc:'Testen Sie Ihre Warteschlange mit der Folge aus der Wiki-Seite. Das Labor führt die Operationen aus und kontrolliert die entstehenden Zustände von <code>vorne</code> und <code>hinten</code>.',start:[],code:`enqueue(P100);\nenqueue(P200);\nenqueue(P300);\n\ndequeue();\n\nenqueue(P400);\n\ndequeue();\ndequeue();\ndequeue();`,expect:'sequence',solution:`enqueue(P100);
-enqueue(P200);
-enqueue(P300);
-
-dequeue();
-
-enqueue(P400);
-
-dequeue();
-dequeue();
-dequeue();
-
-// Endzustand:
-// vorne  → null
-// hinten → null`,hints:['Arbeiten Sie die Anweisungen von oben nach unten ab.','Nach drei enqueue()-Aufrufen steht P100 vorne und P300 hinten.','Nach dem ersten dequeue() beginnt die Queue mit P200.','Nach dem letzten dequeue() müssen vorne und hinten null sein.']},
-{kind:'queue',wiki:'Aufgabe 16',topic:'WIKI 21 · QUEUE · FEHLERANALYSE',title:'Aufgabe 16 – Fehleranalyse',desc:'Untersuchen und korrigieren Sie die vorgegebene <code>dequeue()</code>-Methode. Der kritische Fall ist eine Queue mit genau einem Element.',start:['P100'],code:`public Paket dequeue() {\n\n    if (vorne == null) {\n        return null;\n    }\n\n    Paket paket = vorne.getPaket();\n    vorne = vorne.getNaechster();\n\n    return paket;\n}`,expect:'bug',solution:`public Paket dequeue() {
-    if (vorne == null) {
-        return null;
-    }
-
-    Paket paket = vorne.getPaket();
-    vorne = vorne.getNaechster();
-
-    if (vorne == null) {
-        hinten = null;
-    }
-
-    return paket;
-}`,hints:['Beobachten Sie nach dequeue() nicht nur vorne, sondern auch hinten.','Bei einem Element zeigen vorne und hinten vor dem Entfernen auf denselben Knoten.','Wenn vorne nach dem Entfernen null ist, muss auch hinten zurückgesetzt werden.',`if (vorne == null) {\n    hinten = null;\n}`]},
-{kind:'tree',wiki:'Q1.4.3',topic:'WIKI 1.4.3 · BINÄRBÄUME · KNOTEN',title:'Binärbaum – Knoten modellieren',desc:'Ergänzen Sie einen Baumknoten mit Nutzdaten sowie Referenzen auf linken und rechten Teilbaum.',visual:'tree',code:`public class BaumKnoten {\n    private Paket paket;\n    private BaumKnoten links;\n    private BaumKnoten rechts;\n\n    public BaumKnoten(Paket paket) {\n        // Ihr Code\n    }\n\n    public BaumKnoten getLinks() {\n        // Ihr Code\n    }\n\n    public BaumKnoten getRechts() {\n        // Ihr Code\n    }\n}`,expect:'treenode',solution:`public BaumKnoten(Paket paket) {\n    this.paket = paket;\n    this.links = null;\n    this.rechts = null;\n}\n\npublic BaumKnoten getLinks() { return links; }\npublic BaumKnoten getRechts() { return rechts; }`,hints:['Welche drei Informationen benötigt ein Baumknoten?','Ein neuer Knoten besitzt zunächst keine Kinder.','Beide Kindreferenzen starten mit null.','Setzen Sie this.paket = paket sowie links und rechts auf null.']},
-{kind:'tree',wiki:'Q1.4.3',topic:'WIKI 1.4.3 · BINÄRBÄUME · REKURSION',title:'Binärbaum – Anzahl der Knoten',desc:'Implementieren Sie rekursiv eine Methode, die alle Knoten eines Binärbaums zählt.',visual:'tree',code:`public int anzahlKnoten(BaumKnoten k) {\n    // Ihr Code\n}`,expect:'treecount',solution:`public int anzahlKnoten(BaumKnoten k) {\n    if (k == null) return 0;\n    return 1 + anzahlKnoten(k.getLinks())\n             + anzahlKnoten(k.getRechts());\n}`,hints:['Jede rekursive Baumfunktion braucht einen Basisfall.','Ein leerer Teilbaum enthält 0 Knoten.','Zählen Sie den aktuellen Knoten plus beide Teilbäume.','return 1 + anzahlKnoten(k.getLinks()) + anzahlKnoten(k.getRechts());']},
-{kind:'traversal',wiki:'Q1.4.4',topic:'WIKI 1.4.4 · TRAVERSIERUNG · INORDER',title:'Inorder-Traversierung implementieren',desc:'Vervollständigen Sie die rekursive Inorder-Traversierung. Reihenfolge: linker Teilbaum – Knoten – rechter Teilbaum.',visual:'tree',code:`public void inorder(BaumKnoten k) {\n    if (k == null) return;\n\n    // Ihr Code\n}`,expect:'inorder',solution:`public void inorder(BaumKnoten k) {\n    if (k == null) return;\n    inorder(k.getLinks());\n    verarbeiten(k);\n    inorder(k.getRechts());\n}`,hints:['Inorder bedeutet L – K – R.','Zuerst wird der linke Teilbaum rekursiv verarbeitet.','Danach der aktuelle Knoten, zuletzt der rechte Teilbaum.','inorder(k.getLinks()); verarbeiten(k); inorder(k.getRechts());']},
-{kind:'traversal',wiki:'Q1.4.4',topic:'WIKI 1.4.4 · TRAVERSIERUNG · ANALYSE',title:'Traversierungsart erkennen',desc:'Der vorgegebene Code soll eine Preorder-Traversierung realisieren. Ordnen Sie die drei Anweisungen korrekt.',visual:'tree',code:`public void preorder(BaumKnoten k) {\n    if (k == null) return;\n\n    // Ordnen:\n    // preorder(k.getLinks());\n    // preorder(k.getRechts());\n    // verarbeiten(k);\n}`,expect:'preorder',solution:`public void preorder(BaumKnoten k) {\n    if (k == null) return;\n    verarbeiten(k);\n    preorder(k.getLinks());\n    preorder(k.getRechts());\n}`,hints:['Preorder beginnt beim aktuellen Knoten.','Danach folgt der linke Teilbaum.','Zum Schluss folgt der rechte Teilbaum.','Reihenfolge: K – L – R.']},
-{kind:'bst',wiki:'Q1.4.5 · 38',topic:'WIKI 38 · BINÄRER SUCHBAUM · SUCHEN',title:'Im binären Suchbaum suchen',desc:'Implementieren Sie die rekursive Suche. Nutzen Sie die Suchbaumeigenschaft, damit jeweils nur ein Teilbaum untersucht wird.',visual:'bst',code:`public Paket suchen(BaumKnoten k, int nummer) {\n    // Ihr Code\n}`,expect:'bstsearch',solution:`public Paket suchen(BaumKnoten k, int nummer) {\n    if (k == null) return null;\n    if (nummer == k.getNummer()) return k.getPaket();\n    if (nummer < k.getNummer()) {\n        return suchen(k.getLinks(), nummer);\n    }\n    return suchen(k.getRechts(), nummer);\n}`,hints:['Was ist der Basisfall eines erfolglosen Suchpfades?','Vergleichen Sie nummer mit dem Schlüssel des aktuellen Knotens.','Kleiner → links, größer → rechts.','Es wird nur EIN rekursiver Teilbaumaufruf benötigt.']},
-{kind:'bst',wiki:'Q1.4.5 · 40',topic:'WIKI 40 · BINÄRER SUCHBAUM · EINFÜGEN',title:'In den Suchbaum einfügen',desc:'Vervollständigen Sie das rekursive Einfügen. Die Methode gibt die möglicherweise neue Teilbaumwurzel zurück.',visual:'bst',code:`public BaumKnoten einfuegen(BaumKnoten k, Paket paket) {\n    if (k == null) {\n        // ...\n    }\n\n    if (paket.getNummer() < k.getNummer()) {\n        // ...\n    } else {\n        // ...\n    }\n\n    return k;\n}`,expect:'bstinsert',solution:`public BaumKnoten einfuegen(BaumKnoten k, Paket paket) {\n    if (k == null) return new BaumKnoten(paket);\n    if (paket.getNummer() < k.getNummer()) {\n        k.setLinks(einfuegen(k.getLinks(), paket));\n    } else {\n        k.setRechts(einfuegen(k.getRechts(), paket));\n    }\n    return k;\n}`,hints:['Ein leerer Teilbaum ist die Einfügeposition.','Dort entsteht ein neuer BaumKnoten.','Der rekursive Rückgabewert muss wieder als Kindreferenz gespeichert werden.','links: k.setLinks(einfuegen(...)); rechts entsprechend.']},
-{kind:'bst2',wiki:'Q1.4.6 · 47',topic:'WIKI 47 · SUCHBAUM VERÄNDERN · MINIMUM',title:'Inorder-Nachfolger finden',desc:'Implementieren Sie die Hilfsmethode, die den kleinsten Knoten eines nicht leeren Teilbaums findet.',visual:'bst',code:`private BaumKnoten minimum(BaumKnoten k) {\n    // Ihr Code\n}`,expect:'minimum',solution:`private BaumKnoten minimum(BaumKnoten k) {\n    while (k.getLinks() != null) {\n        k = k.getLinks();\n    }\n    return k;\n}`,hints:['Wo liegt der kleinste Schlüssel in einem Suchbaum?','Folgen Sie immer der linken Referenz.','Stoppen Sie, sobald kein linker Nachfolger mehr existiert.','while (k.getLinks() != null) k = k.getLinks();']},
-{kind:'bst2',wiki:'Q1.4.6 · 48',topic:'WIKI 48 · SUCHBAUM VERÄNDERN · LÖSCHEN',title:'Löschalgorithmus ergänzen',desc:'Ergänzen Sie den rekursiven Kern des Löschens. Berücksichtigen Sie insbesondere die Fälle mit keinem, einem und zwei Kindern.',visual:'bst',code:`public BaumKnoten loeschen(BaumKnoten k, int nummer) {\n    if (k == null) return null;\n\n    if (nummer < k.getNummer()) {\n        // ...\n    } else if (nummer > k.getNummer()) {\n        // ...\n    } else {\n        // Knoten gefunden\n        // ...\n    }\n    return k;\n}`,expect:'bstdelete',solution:`public BaumKnoten loeschen(BaumKnoten k, int nummer) {\n    if (k == null) return null;\n    if (nummer < k.getNummer()) {\n        k.setLinks(loeschen(k.getLinks(), nummer));\n    } else if (nummer > k.getNummer()) {\n        k.setRechts(loeschen(k.getRechts(), nummer));\n    } else {\n        if (k.getLinks() == null) return k.getRechts();\n        if (k.getRechts() == null) return k.getLinks();\n        BaumKnoten nachfolger = minimum(k.getRechts());\n        k.setPaket(nachfolger.getPaket());\n        k.setRechts(loeschen(k.getRechts(), nachfolger.getNummer()));\n    }\n    return k;\n}`,hints:['Suchen Sie zunächst wie bei der normalen Suchbaum-Suche.','Bei nur einem Kind kann dieses Kind direkt zurückgegeben werden.','Bei zwei Kindern wird ein geeigneter Ersatzschlüssel benötigt.','Verwenden Sie das Minimum des rechten Teilbaums und löschen Sie diesen Nachfolger anschließend dort.']},
-{kind:'trie',wiki:'Q1.4.7 · 57',topic:'WIKI 57 · TRIE · SUCHEN',title:'Im Trie suchen',desc:'Vervollständigen Sie die Suche. Jede Ziffer bestimmt direkt den Index des nächsten Kindknotens.',visual:'trie',code:`public boolean suchen(String paketnummer) {\n    Knoten aktuell = wurzel;\n\n    for (int i = 0; i < paketnummer.length(); i++) {\n        if (!(aktuell instanceof InnererKnoten)) return false;\n\n        int ziffer = paketnummer.charAt(i) - '0';\n        aktuell = ((InnererKnoten) aktuell).getKind(________);\n\n        if (aktuell == null) return ________;\n    }\n\n    return aktuell instanceof Blatt;\n}`,expect:'triesearch',solution:`public boolean suchen(String paketnummer) {\n    Knoten aktuell = wurzel;\n    for (int i = 0; i < paketnummer.length(); i++) {\n        if (!(aktuell instanceof InnererKnoten)) return false;\n        int ziffer = paketnummer.charAt(i) - '0';\n        aktuell = ((InnererKnoten) aktuell).getKind(ziffer);\n        if (aktuell == null) return false;\n    }\n    return aktuell instanceof Blatt;\n}`,hints:['Die aktuelle Ziffer wurde bereits in ziffer gespeichert.','Diese Ziffer ist direkt der Arrayindex.','Fehlt die Kindreferenz, ist der Schlüssel nicht vorhanden.','getKind(ziffer) und bei null false zurückgeben.']},
-{kind:'trie',wiki:'Q1.4.7 · 58',topic:'WIKI 58 · TRIE · EINFÜGEN',title:'Rekursiv in den Trie einfügen',desc:'Ergänzen Sie den rekursiven Einfügealgorithmus für gleich lange Paketnummern.',visual:'trie',code:`private Knoten einfuegen(Knoten k, String paketnummer, int position) {\n    if (position == paketnummer.length()) {\n        // ...\n    }\n    if (k == null) {\n        // ...\n    }\n    int ziffer = paketnummer.charAt(position) - '0';\n    InnererKnoten innen = (InnererKnoten) k;\n    Knoten kind = innen.getKind(ziffer);\n    // rekursiver Aufruf + Referenz setzen\n    return innen;\n}`,expect:'trieinsert',solution:`private Knoten einfuegen(Knoten k, String paketnummer, int position) {\n    if (position == paketnummer.length()) {\n        return new Blatt(paketnummer);\n    }\n    if (k == null) k = new InnererKnoten();\n    int ziffer = paketnummer.charAt(position) - '0';\n    InnererKnoten innen = (InnererKnoten) k;\n    Knoten kind = innen.getKind(ziffer);\n    kind = einfuegen(kind, paketnummer, position + 1);\n    innen.setKind(ziffer, kind);\n    return innen;\n}`,hints:['Der Basisfall ist erreicht, wenn alle Ziffern verarbeitet wurden.','Dann entsteht das Blatt für die vollständige Paketnummer.','Der rekursive Aufruf arbeitet an position + 1.','Speichern Sie den rekursiven Rückgabewert anschließend mit setKind(ziffer, kind).']},
-{kind:'trie',wiki:'Q1.4.7 · 59',topic:'WIKI 59 · TRIE · PRÄFIX',title:'Präfixknoten finden',desc:'Implementieren Sie Phase 1 der Präfixsuche: Folgen Sie nur dem Präfix und geben Sie den erreichten Knoten zurück.',visual:'trie',code:`public Knoten findePraefix(String praefix) {\n    Knoten aktuell = wurzel;\n    // Ihr Code\n}`,expect:'prefix',solution:`public Knoten findePraefix(String praefix) {\n    Knoten aktuell = wurzel;\n    for (int i = 0; i < praefix.length(); i++) {\n        if (!(aktuell instanceof InnererKnoten)) return null;\n        int ziffer = praefix.charAt(i) - '0';\n        aktuell = ((InnererKnoten) aktuell).getKind(ziffer);\n        if (aktuell == null) return null;\n    }\n    return aktuell;\n}`,hints:['Phase 1 entspricht fast der normalen Trie-Suche.','Die Schleife läuft nur über die Länge des Präfixes.','Fehlt ein Kind, existiert kein Schlüssel mit diesem Präfix.','Am Ende geben Sie den erreichten Knoten zurück; ab dort würde Phase 2 traversieren.']},
-{kind:'review',wiki:'Gesamtsicherung Q1.4',topic:'KLAUSURTRAINING · DATENSTRUKTUR AUSWÄHLEN',title:'Welche Datenstruktur für welches Problem?',desc:'Ergänzen Sie die Methode so, dass sie für typische Anforderungen eine passende Datenstruktur als Text zurückgibt. Nutzen Sie die Fachbegriffe Array, Stack, Queue, Suchbaum und Trie.',visual:'review',code:`public String waehle(String anforderung) {\n    if (anforderung.equals("UNDO")) return "________";\n    if (anforderung.equals("FIFO")) return "________";\n    if (anforderung.equals("PRAEFIX")) return "________";\n    if (anforderung.equals("INDEXZUGRIFF")) return "________";\n    if (anforderung.equals("SCHLUESSELSUCHE")) return "________";\n    return "unbekannt";\n}`,expect:'choose',solution:`public String waehle(String anforderung) {\n    if (anforderung.equals("UNDO")) return "Stack";\n    if (anforderung.equals("FIFO")) return "Queue";\n    if (anforderung.equals("PRAEFIX")) return "Trie";\n    if (anforderung.equals("INDEXZUGRIFF")) return "Array";\n    if (anforderung.equals("SCHLUESSELSUCHE")) return "Suchbaum";\n    return "unbekannt";\n}`,hints:['Undo benötigt das zuletzt gespeicherte Element zuerst.','FIFO ist das Zugriffsprinzip der Queue.','Präfixsuchen sind eine besondere Stärke des Tries.','Direkter Indexzugriff → Array; geordnete Schlüsselsuche → Suchbaum.']}
-]
 let index=0,hint=0,step=0,filter='all';
 const $=id=>document.getElementById(id);
+const saved=LabStorage.json('q14_lab_v2',{});
+const drafts=saved.drafts&&typeof saved.drafts==='object'&&!Array.isArray(saved.drafts)?saved.drafts:{};
+const completed=new Set(Array.isArray(saved.completed)?saved.completed.filter(id=>tasks.some(t=>t.id===id)):[]);
+function persist(){LabStorage.set('q14_lab_v2',JSON.stringify({drafts,completed:[...completed]}));$('storageNotice').textContent=LabStorage.temporary?'Speicherung ist im Browser gesperrt; Fortschritt bleibt nur für diese Sitzung erhalten.':'';}
 function current(){return tasks[index]}
-function visible(){return filter==='all'?tasks.filter(t=>t.kind!=='extra'):tasks.filter(t=>filter==='stackqueue'?['stack','queue'].includes(t.kind):t.kind===filter)}
+function visible(){return filter==='all'?tasks:tasks.filter(t=>filter==='stackqueue'?['stack','queue'].includes(t.kind):t.kind===filter)}
 function safe(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function render(){let t=current();$('topic').textContent=t.topic;$('title').textContent=t.title;$('description').innerHTML='<p>'+t.desc+'</p>';$('code').value=t.code;hint=0;step=0;$('hintLevel').textContent='0 / 4';$('helpText').innerHTML='<p>Nutze die Hilfen nur, wenn du nicht weiterkommst. Die erste Hilfe ist nur ein Denkimpuls.</p>';$('tests').innerHTML='<p class="muted">Noch keine Tests ausgeführt.</p>';$('score').textContent='noch nicht getestet';$('message').className='message muted';$('message').textContent='Schreibe deinen Code und starte die Tests.';let v=visible(),pos=v.indexOf(t);$('stationSelect').innerHTML=v.map((task,i)=>`<option value="${tasks.indexOf(task)}"${task===t?' selected':''}>${i+1}. ${safe(task.title)}</option>`).join('');$('progressText').textContent=`${t.wiki} · Station ${pos+1} von ${v.length}`;$('progressBar').style.width=((pos+1)/v.length*100)+'%';visual('Ausgangszustand');}
-function visual(label){let t=current();$('stepLabel').textContent=label;let html='';if(['tree','bst','bst2','traversal'].includes(t.visual)){html=`<div class="treeviz"><div class="tn root">50</div><div class="branches">↙ &nbsp;&nbsp;&nbsp;&nbsp; ↘</div><div class="level"><span class="tn">30</span><span class="tn">70</span></div><div class="branches">↙ ↘ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↙ ↘</div><div class="level"><span class="tn">20</span><span class="tn">40</span><span class="tn">60</span><span class="tn">80</span></div></div>`}else if(t.visual==='trie'){html=`<div class="treeviz trie"><div class="tn root">Start</div><div>↓ 1</div><div class="tn">1</div><div>↓ 2</div><div class="tn">2</div><div class="branches">↙ 3 &nbsp; ↓ 5 &nbsp; ↘ 8</div><div class="level"><span class="tn">3</span><span class="tn">5</span><span class="tn">8</span></div></div>`}else if(t.visual==='review'){html=`<div class="decision"><strong>Anforderung → Struktur</strong><br><br>Undo → ?<br>FIFO → ?<br>Präfix → ?<br>Indexzugriff → ?<br>Schlüsselsuche → ?</div>`}else{let arr=t.start||[];let refs=t.kind==='stack'?'<div class="refs">oben ↓</div>':t.kind==='list'?'<div class="refs">erster ↓</div>':'<div class="refs">vorne ↓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓ hinten</div>';html=refs+`<div class="chain">${arr.map(x=>`<span class="node">${x}</span>`).join('<span class="arrow">→</span>')}<span class="arrow">→ null</span></div>`}$('visualization').innerHTML=html;$('explain').textContent=step?`Schritt ${step}: Verfolge die nächste relevante Referenz oder Rekursionsentscheidung im Code.`:'';}
-function normalize(s){return s.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g,' ').replace(/\s+/g,' ').toLowerCase()}
-function checks(e,c){const has=r=>r.test(c), M={
- treenode:[['Paket gespeichert',has(/this\.paket\s*=\s*paket/)],['links startet null',has(/links\s*=\s*null/)],['rechts startet null',has(/rechts\s*=\s*null/)],['Getter für beide Kinder',has(/return\s+links/)&&has(/return\s+rechts/)]],
- treecount:[['Basisfall null',has(/k\s*==\s*null/)&&has(/return\s+0/)],['Aktueller Knoten gezählt',has(/return\s+1/)],['Linker Teilbaum rekursiv',has(/anzahlknoten\s*\(\s*k\.getlinks/)],['Rechter Teilbaum rekursiv',has(/anzahlknoten\s*\(\s*k\.getrechts/)]],
- inorder:[['Basisfall vorhanden',has(/k\s*==\s*null/)],['Links zuerst',has(/inorder\s*\(\s*k\.getlinks/)],['Knoten verarbeitet',has(/verarbeiten\s*\(\s*k\s*\)/)],['Rechts danach',has(/inorder\s*\(\s*k\.getrechts/)]],
- preorder:[['Basisfall vorhanden',has(/k\s*==\s*null/)],['Knoten verarbeitet',has(/verarbeiten\s*\(\s*k\s*\)/)],['Linker Aufruf',has(/preorder\s*\(\s*k\.getlinks/)],['Rechter Aufruf',has(/preorder\s*\(\s*k\.getrechts/)]],
- bstsearch:[['Basisfall null',has(/k\s*==\s*null/)],['Gleichheit geprüft',has(/nummer\s*==\s*k\.getnummer/)],['Kleiner → links',has(/nummer\s*<\s*k\.getnummer/)&&has(/suchen\s*\(\s*k\.getlinks/)],['Größer → rechts',has(/suchen\s*\(\s*k\.getrechts/)]],
- bstinsert:[['Neuer Knoten im Basisfall',has(/k\s*==\s*null/)&&has(/new\s+baumknoten/)],['Schlüsselvergleich',has(/getnummer\s*\(\s*\)\s*<\s*k\.getnummer/)],['Linke Referenz gesetzt',has(/setlinks\s*\(\s*einfuegen/)],['Rechte Referenz gesetzt',has(/setrechts\s*\(\s*einfuegen/)],['Teilbaumwurzel zurückgegeben',has(/return\s+k/)]],
- minimum:[['Linke Referenz geprüft',has(/getlinks\s*\(\s*\)\s*!=\s*null/)],['Nach links weitergegangen',has(/k\s*=\s*k\.getlinks/)],['Minimum zurückgegeben',has(/return\s+k/)]],
- bstdelete:[['Leerer Teilbaum behandelt',has(/k\s*==\s*null/)],['Links rekursiv gelöscht',has(/setlinks\s*\(\s*loeschen/)],['Rechts rekursiv gelöscht',has(/setrechts\s*\(\s*loeschen/)],['Fall ohne linkes Kind',has(/getlinks\s*\(\s*\)\s*==\s*null/)&&has(/return\s+k\.getrechts/)],['Fall ohne rechtes Kind',has(/getrechts\s*\(\s*\)\s*==\s*null/)&&has(/return\s+k\.getlinks/)],['Nachfolger über minimum',has(/minimum\s*\(\s*k\.getrechts/)]],
- triesearch:[['Ziffer als Index verwendet',has(/getkind\s*\(\s*ziffer\s*\)/)],['Fehlender Pfad erkannt',has(/aktuell\s*==\s*null/)&&has(/return\s+false/)],['Blatt am Ende geprüft',has(/instanceof\s+blatt/)]],
- trieinsert:[['Basisfall Schlüssellänge',has(/position\s*==\s*paketnummer\.length/)],['Blatt erzeugt',has(/new\s+blatt/)],['Innerer Knoten erzeugt',has(/new\s+innererknoten/)],['Rekursion mit position + 1',has(/einfuegen\s*\([^;]*position\s*\+\s*1/)],['Kindreferenz gespeichert',has(/setkind\s*\(\s*ziffer/)]],
- prefix:[['Schleife über Präfix',has(/i\s*<\s*praefix\.length/)],['Ziffer bestimmt Kind',has(/getkind\s*\(\s*ziffer\s*\)/)],['Fehlenden Pfad behandelt',has(/aktuell\s*==\s*null/)],['Präfixknoten zurückgegeben',has(/return\s+aktuell/)]],
- choose:[['Undo → Stack',has(/undo[^;]*return\s+"stack"/)],['FIFO → Queue',has(/fifo[^;]*return\s+"queue"/)],['Präfix → Trie',has(/praefix[^;]*return\s+"trie"/)],['Index → Array',has(/indexzugriff[^;]*return\s+"array"/)],['Schlüsselsuche → Suchbaum',has(/schluesselsuche[^;]*return\s+"suchbaum"/)]],
- push:[['Neuen Knoten erzeugt',has(/new knoten\s*\(\s*paket\s*\)/)],['Neuer Knoten zeigt auf bisherigen Stack',has(/neu\.setnaechster\s*\(\s*oben\s*\)/)],['oben wird auf neuen Knoten gesetzt',has(/oben\s*=\s*neu/)]],
- pop:[['Leeren Stack behandelt',has(/oben\s*==\s*null/)],['Paket gelesen',has(/oben\.getpaket/)],['oben weitergesetzt',has(/oben\s*=\s*oben\.getnaechster/)],['Paket zurückgegeben',has(/return\s+paket/)]],
- enqueue:[['Knoten erzeugt',has(/new knoten/)],['Leere Queue erkannt',has(/vorne\s*==\s*null|hinten\s*==\s*null/)],['vorne gesetzt',has(/vorne\s*=\s*neu/)],['hinten verknüpft',has(/hinten\.setnaechster/)&&has(/hinten\s*=\s*neu/)]],
- dequeue:[['Leere Queue behandelt',has(/vorne\s*==\s*null/)],['Paket gelesen',has(/vorne\.getpaket/)],['vorne weitergesetzt',has(/vorne\s*=\s*vorne\.getnaechster/)],['hinten bei leer null',has(/hinten\s*=\s*null/)]],
- bug:[['Leere Queue behandelt',has(/vorne\s*==\s*null/)],['Paket gelesen',has(/vorne\.getpaket/)],['vorne weitergesetzt',has(/vorne\s*=\s*vorne\.getnaechster/)],['hinten bei leer null',has(/hinten\s*=\s*null/)]],
- nodeclass:[['Paket-Attribut',has(/private paket paket/)],['Nachfolger',has(/private knoten naechster/)],['Paket gespeichert',has(/this\.paket\s*=\s*paket/)],['Nachfolger null',has(/this\.naechster\s*=\s*null/)]],
- traverse:[['Start bei erster',has(/knoten aktuell\s*=\s*erster/)],['Bis null',has(/while\s*\(\s*aktuell\s*!=\s*null/)],['Weitergesetzt',has(/aktuell\s*=\s*aktuell\.getnaechster/)],['Gewicht gelesen',has(/getgewicht/)],['Zielort verglichen',has(/getzielort/)],['Paketnummer verglichen',has(/getpaketnummer/)]],
- insertAfter:[['Knoten erzeugt',has(/new knoten/)],['Bisheriger Nachfolger übernommen',has(/neu\.setnaechster\s*\(\s*aktuell\.getnaechster/)],['aktuell → neu',has(/aktuell\.setnaechster\s*\(\s*neu/)]],
- insertFront:[['Knoten erzeugt',has(/new knoten/)],['neu → erster',has(/neu\.setnaechster\s*\(\s*erster/)],['erster → neu',has(/erster\s*=\s*neu/)]],
- deleteFirst:[['Leere Liste',has(/erster\s*==\s*null/)],['erster weitergesetzt',has(/erster\s*=\s*erster\.getnaechster/)],['Erfolg zurückgegeben',has(/return\s+true/)]],
- deleteSearch:[['vorher + aktuell',has(/knoten vorher\s*=\s*null/)&&has(/knoten aktuell\s*=\s*erster/)],['Suche bis null',has(/while\s*\(\s*aktuell\s*!=\s*null/)],['Erstes Element',has(/vorher\s*==\s*null/)],['Inneres Element',has(/vorher\.setnaechster/)],['Weiterlaufen',has(/vorher\s*=\s*aktuell/)&&has(/aktuell\s*=\s*aktuell\.getnaechster/)]],
- updatePayload:[['Traversiert',has(/while\s*\(/)],['Paketnummer',has(/getpaketnummer/)],['Status geändert',has(/setstatus/)],['Keine Strukturänderung',!has(/setnaechster/)]],
- sortedInsert:[['Knoten erzeugt',has(/new knoten/)],['Sonderfall vorne',has(/erster\s*==\s*null/)],['Gewicht als Kriterium',has(/getgewicht/)],['Position gesucht',has(/while\s*\(/)],['Referenzen gesetzt',has(/neu\.setnaechster/)&&has(/aktuell\.setnaechster/)]],
- stackclass:[['push vorhanden',has(/void\s+push/)&&has(/oben\s*=\s*neu/)],['pop vorhanden',has(/paket\s+pop/)&&has(/oben\s*=\s*oben\.getnaechster/)],['peek vorhanden',has(/paket\s+peek/)],['isEmpty vorhanden',has(/boolean\s+isempty/)]],
- queueclass:[['enqueue vorhanden',has(/void\s+enqueue/)],['dequeue vorhanden',has(/paket\s+dequeue/)],['hinten gepflegt',has(/hinten\s*=\s*null/)],['front vorhanden',has(/paket\s+front/)],['isEmpty vorhanden',has(/boolean\s+isempty/)]],
- sequence:[['P100–P300 eingefügt',has(/enqueue\s*\(\s*p100/)&&has(/enqueue\s*\(\s*p200/)&&has(/enqueue\s*\(\s*p300/)],['P400 eingefügt',has(/enqueue\s*\(\s*p400/)],['Vier Entnahmen',((c.match(/dequeue\s*\(\s*\)/g)||[]).length===4)]]
-};return M[e]||[['Code bearbeitet',c.indexOf('// ihr code')<0]]}
-function evaluate(){let c=normalize($('code').value),tests=checks(current().expect,c),ok=tests.filter(x=>x[1]).length;$('tests').innerHTML=tests.map(x=>`<div class="testrow"><span class="${x[1]?'pass':'fail'}">${x[1]?'✓':'✗'}</span><span>${x[0]}</span></div>`).join('');$('score').textContent=`${ok} / ${tests.length} bestanden`;$('message').className='message '+(ok===tests.length?'ok':'bad');$('message').textContent=ok===tests.length?'Alle geprüften Strukturmuster sind vorhanden. Prüfe zusätzlich Reihenfolge und Sonderfälle; dies ist keine Java-Ausführung.':'Noch nicht ganz. Nutze die Rückmeldung und bei Bedarf einen gestuften Hinweis.';saveWork();}
-$('hint').onclick=()=>{let t=current();if(hint<4)hint++;$('hintLevel').textContent=`${hint} / 4`;$('helpText').innerHTML=`<p><strong>Hilfe ${hint}</strong></p><pre>${safe(t.hints[hint-1])}</pre>`};
-$('solution').onclick=()=>{let t=current();$('helpText').innerHTML=`<p><strong>Musterlösung</strong></p><p class="muted">Vergleiche sie mit deinem Ansatz. Entscheidend ist nicht nur das Ergebnis, sondern die verwendete Strukturidee.</p><pre>${safe(t.solution)}</pre>`;$('hintLevel').textContent='Lösung'};
-$('run').onclick=evaluate;$('reset').onclick=render;$('step').onclick=()=>{step=(step+1)%4;visual(['Ausgangszustand','Entscheidung / Zugriff','Rekursion / Referenz','Ergebnis'][step])};
-function move(dir){let v=visible(),pos=v.indexOf(current());pos=(pos+dir+v.length)%v.length;index=tasks.indexOf(v[pos]);render()}
-$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
-$('stationSelect').onchange=e=>{index=Number(e.target.value);render()};
-document.querySelectorAll('.tab[data-filter]').forEach(b=>b.onclick=()=>{document.getElementById('diagnostic').classList.add('hidden');document.getElementById('labMain').classList.remove('hidden');document.querySelectorAll('.tab').forEach(x=>{x.classList.remove('active');x.removeAttribute('aria-current')});b.classList.add('active');b.setAttribute('aria-current','page');filter=b.dataset.filter;let v=visible();if(v.length)index=tasks.indexOf(v[0]);render()});render();
-
-// Arbeitsstände und Fortschritt
-let work={};try{work=JSON.parse(localStorage.getItem('q14_work_v5')||'{}')}catch{}
-function taskKey(){return current().expect}
-function saveWork(){work[taskKey()]={code:$('code').value,hint,checked:$('score').textContent};try{localStorage.setItem('q14_work_v5',JSON.stringify(work));$('saveStatus').textContent='Arbeitsstand auf diesem Gerät gespeichert'}catch{$('saveStatus').textContent='Speichern nicht möglich – bitte exportieren.'}}
-const baseRender=render;render=function(){baseRender();const w=work[taskKey()];if(w){$('code').value=w.code;hint=w.hint||0;$('hintLevel').textContent=hint+' / 4'}$('progressText').textContent+=' · '+Object.keys(work).filter(k=>tasks.some(t=>t.expect===k&&t.kind!=='extra')).length+' Wiki-Stationen bearbeitet';};
-$('code').addEventListener('input',saveWork);
-const baseChecks=checks;checks=function(e,c){let r=baseChecks(e,c);if(['inorder','preorder','postorder'].includes(e)){let parts=e==='inorder'?['inorder(k.getlinks','verarbeiten(k)','inorder(k.getrechts']:e==='preorder'?['verarbeiten(k)','preorder(k.getlinks','preorder(k.getrechts']:['postorder(k.getlinks','postorder(k.getrechts','verarbeiten(k)'];let x=parts.map(p=>c.replace(/\s/g,'').indexOf(p));r.push(['Reihenfolge der drei Anweisungen',x.every(n=>n>=0)&&x[0]<x[1]&&x[1]<x[2]])}if(e==='insertAfter')r.push(['Nachfolger vor dem Umhängen gesichert',c.indexOf('neu.setnaechster')<c.indexOf('aktuell.setnaechster')]);return r;};
-$('reset').onclick=()=>{if(confirm('Nur diese Aufgabe auf die Vorlage zurücksetzen?')){delete work[taskKey()];localStorage.setItem('q14_work_v5',JSON.stringify(work));render()}};
-$('exportWork').onclick=()=>{saveWork();const data={version:5,work,start:JSON.parse(localStorage.getItem('q14_start_profile')||'{}'),end:JSON.parse(localStorage.getItem('q14_end_profile')||'{}')};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='lernlabor-arbeitsstand.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
-$('importWork').onchange=async e=>{try{const data=JSON.parse(await e.target.files[0].text());if(data.version!==5||!data.work||typeof data.work!=='object')throw Error();for(const [k,v] of Object.entries(data.work)){if(!tasks.some(t=>t.expect===k)||typeof v.code!=='string')throw Error()}work=data.work;localStorage.setItem('q14_work_v5',JSON.stringify(work));for(const [key,value] of [['start',data.start],['end',data.end]])if(value&&typeof value==='object')localStorage.setItem('q14_'+key+'_profile',JSON.stringify(value));render();$('saveStatus').textContent='Arbeitsstand importiert'}catch{$('saveStatus').textContent='Die Datei ist kein gültiger Lernlabor-Arbeitsstand.'}e.target.value=''};
-render();
-
-const hintAction=$('hint').onclick;$('hint').onclick=()=>{hintAction();saveWork()};
+const methodDirectory={
+list:[['Knoten','Knoten(Paket paket)','Paket getPaket()','Knoten getNaechster()','void setNaechster(Knoten nachfolger)'],['LineareListe','Knoten erster','int anzahlPakete()','double gesamtGewicht()','int zaehlePaketeNach(String zielort)','Paket suchePaket(String paketnummer)','void einfuegenNach(Knoten aktuell, Paket paket)','void vorneEinfuegen(Paket paket)','boolean erstesLoeschen()','boolean loeschePaket(String paketnummer)','boolean aktualisiereStatus(String paketnummer, String neuerStatus)','void sortiertEinfuegen(Paket paket)']],
+stack:[['Knoten','Knoten(Paket paket)','Paket getPaket()','Knoten getNaechster()','void setNaechster(Knoten k)'],['PaketStapel','Knoten oben','void push(Paket paket)','Paket pop()','Paket peek()','boolean isEmpty()']],
+queue:[['Knoten','Knoten(Paket paket)','Paket getPaket()','Knoten getNaechster()','void setNaechster(Knoten k)'],['PaketWarteschlange','Knoten vorne','Knoten hinten','void enqueue(Paket paket)','Paket dequeue()','Paket front()','boolean isEmpty()']],
+tree:[['BaumKnoten','BaumKnoten(Paket paket)','Paket getPaket()','BaumKnoten getLinks()','BaumKnoten getRechts()','void setLinks(BaumKnoten k)','void setRechts(BaumKnoten k)'],['Baumalgorithmen','int anzahlKnoten(BaumKnoten k)','int anzahlBlaetter(BaumKnoten k)','int hoehe(BaumKnoten k)','double gesamtgewicht(BaumKnoten k)']],
+traversal:[['BaumKnoten','BaumKnoten getLinks()','BaumKnoten getRechts()'],['Traversierung','void preorder(BaumKnoten k)','void inorder(BaumKnoten k)','void postorder(BaumKnoten k)','void verarbeiten(BaumKnoten k)']],
+bst:[['BaumKnoten','BaumKnoten(Paket paket)','int getNummer()','Paket getPaket()','BaumKnoten getLinks()','BaumKnoten getRechts()','void setLinks(BaumKnoten k)','void setRechts(BaumKnoten k)'],['Suchbaum','Paket suchen(BaumKnoten k, int nummer)','BaumKnoten einfuegen(BaumKnoten k, Paket paket)']],
+bst2:[['BaumKnoten','int getNummer()','Paket getPaket()','void setPaket(Paket paket)','BaumKnoten getLinks()','BaumKnoten getRechts()','void setLinks(BaumKnoten k)','void setRechts(BaumKnoten k)'],['Suchbaum','BaumKnoten minimum(BaumKnoten k)','BaumKnoten loeschen(BaumKnoten k, int nummer)']],
+trie:[['Knoten','Abstrakte Basisklasse (Trie; anderes Modell als Listenknoten)'],['InnererKnoten','InnererKnoten()','Knoten[] kinder','Knoten getKind(int ziffer)','void setKind(int ziffer, Knoten k)'],['Blatt','Blatt(String paketnummer)','String getPaketnummer()'],['PaketTrie','InnererKnoten wurzel','boolean suchen(String paketnummer)','Knoten einfuegen(Knoten k, String paketnummer, int position)','Knoten findePraefix(String praefix)']],
+review:[['Überblick','Array: direkter Indexzugriff','Stack: push(), pop(), top()','Queue: enqueue(), dequeue(), front()','Liste: Referenzen durchlaufen und verändern','Suchbaum: suchen(), einfuegen(), loeschen()','Trie: getKind(int), Präfixpfade']]
+};
+const packetMethods=['Paket (in den Aufgaben vorausgesetzt)','int getNummer() — numerischer Baumschlüssel','String getPaketnummer() — Listenkennung, z. B. P100','double getGewicht()','String getZielort()','void setStatus(String status)'];
+for(const kind of ['list','stack','queue','tree','bst','bst2'])methodDirectory[kind].push(packetMethods);
+const chapterButtons=[...document.querySelectorAll('.tab[data-filter]')];
+const chapterNames=new Map(chapterButtons.map(b=>[b.dataset.filter,b.textContent.trim()]));
+const chapterOrder=['list','stackqueue','tree','traversal','bst','bst2','trie','review'];
+const methodState=new Map();
+const compactMethods=matchMedia('(max-width:1023px)');
+const statusLabels={correct:'Korrekt',incorrect:'Fachlich falsch',incomplete:'Unvollständig',format:'Eingabeformat fehlerhaft',unverifiable:'Nicht automatisch bewertbar'};
+const feedbackTitles={correct:'Gut gelöst.',incorrect:'Probier es weiter.',incomplete:'Hier fehlt noch etwas.',format:'Prüfe das Eingabeformat.',unverifiable:'Hier braucht es einen zweiten Blick.'};
+function chapterFor(t){return ['stack','queue'].includes(t.kind)?'stackqueue':t.kind;}
+function tasksIn(chapter){return chapter==='all'?tasks:tasks.filter(t=>chapterFor(t)===chapter);}
+function taskState(t){return completed.has(t.id)?'complete':typeof drafts[t.id]==='string'&&drafts[t.id].trim()?'draft':'open';}
+function taskStateLabel(t){return completed.has(t.id)?'✓ Bestätigt':taskState(t)==='draft'?'Entwurf':'Noch offen';}
+function renderMethods(){
+  const t=current(),groups=methodDirectory[t.kind]||[];
+  $('methodsTopic').textContent=chapterNames.get(chapterFor(t)).split(' ')[0];
+  $('methodsContent').innerHTML=groups.map(([heading,...methods],i)=>{
+    const key=t.kind+':'+heading,open=methodState.has(key)?methodState.get(key):i<2;
+    return `<details class="method-group" data-group="${safe(key)}" ${open?'open':''}><summary>${safe(heading)}</summary><div class="method-list">${methods.map(m=>`<code>${safe(m)}</code>`).join('')}</div></details>`;
+  }).join('')+'<p class="methods-note">Nur zum Nachschlagen, ohne fertige Lösungen. Es gelten die Klassen und Bezeichner deiner Aufgabe.</p>';
+  $('methodsContent').querySelectorAll('.method-group').forEach(group=>group.addEventListener('toggle',()=>methodState.set(group.dataset.group,group.open)));
+}
+function progress(){
+  const t=current(),v=visible();
+  $('progressText').textContent=`${completed.size} von ${tasks.length} bestätigt`;
+  $('progressBar').style.width=(completed.size/tasks.length*100)+'%';
+  $('progressTrack').setAttribute('aria-valuenow',completed.size);
+  $('chapterLabel').textContent=chapterNames.get(filter);
+  chapterButtons.forEach(b=>{
+    const scope=tasksIn(b.dataset.filter),done=scope.filter(t=>completed.has(t.id)).length;
+    b.innerHTML=`<span>${safe(chapterNames.get(b.dataset.filter))}</span><span class="chapter-count">${done} / ${scope.length}</span>`;
+    if(b.dataset.filter===filter)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+  });
+  const selected=$('taskSelect');
+  selected.innerHTML=v.map((task,i)=>`<option value="${task.id}" ${task===t?'selected':''}>${i+1} / ${v.length} · ${safe(task.title)} · ${taskStateLabel(task)}</option>`).join('');
+  $('taskStatus').textContent=taskStateLabel(t);$('taskStatus').dataset.state=taskState(t);
+  $('prev').disabled=v.indexOf(t)===0;
+  $('next').innerHTML=v.indexOf(t)<v.length-1?'Weiter <span aria-hidden="true">→</span>':filter!=='all'&&chapterOrder.indexOf(filter)<chapterOrder.length-1?'Nächstes Kapitel <span aria-hidden="true">→</span>':'Zum Kompetenzcheck <span aria-hidden="true">→</span>';
+}
+function showFeedback(status,title,text){
+  $('message').className='message';$('message').dataset.status=status;
+  $('message').innerHTML=`<div>${title?`<strong>${safe(title)}</strong>`:''}<p>${safe(text)}</p></div>`;
+}
+function updateEditorLines(){
+  $('lineNumbers').textContent=Array.from({length:$('code').value.split('\n').length},(_,i)=>i+1).join('\n');
+  $('lineNumbers').scrollTop=$('code').scrollTop;
+}
+function render(){
+  const t=current();renderMethods();
+  $('topic').textContent=chapterNames.get(chapterFor(t))+' · '+t.wiki;
+  $('topic').title=t.topic;
+  $('title').textContent=t.title;$('description').innerHTML='<p>'+t.desc+'</p>';
+  $('competencyText').textContent=t.topic.split('·').slice(1).map(x=>x.trim()).filter(x=>x!=='VERTIEFUNG').join(' · ')||t.topic;
+  $('code').value=typeof drafts[t.id]==='string'?drafts[t.id]:t.code;
+  document.querySelector('.editor').classList.toggle('is-answer',t.mode==='answer');
+  document.querySelector('.editor .cardhead h2').textContent=t.format==='java'?'Deine Java-Lösung':t.mode==='operations'?'Deine Operationsfolge':'Deine Antwort';
+  $('editorLanguage').textContent=t.format==='java'||t.mode==='operations'?'Java':'Kurzantwort';
+  $('sourceLabel').textContent=t.code.trim()?'Vorlage ergänzen · hier kannst du schreiben':'Deine Eingabe';
+  $('assessmentMode').textContent=t.mode==='functional'?'Funktionstests mit Beispieleingaben':'Automatische Antwortprüfung';
+  $('inputFormat').textContent=t.inputLabel;
+  $('code').placeholder=t.format==='java'?'Entwickle hier deine Lösung …':'Deine Antwort …';
+  $('code').setAttribute('wrap',t.mode==='answer'?'soft':'off');
+  const context=t.spec?.methods.length===1&&!t.fragment&&!t.code.trim();
+  $('codeSignature').textContent=context?`public ${t.spec.methods[0].result} ${t.spec.methods[0].name}(${t.spec.methods[0].params.map(p=>p.type+' '+p.name).join(', ')}) {`:'';
+  for(const id of ['codeSignature','signaturePanel','closingBrace'])$(id).classList.toggle('hidden',!context);
+  $('assessmentNotice').textContent=t.mode==='functional'?'Der Browser unterstützt einen begrenzten Java-Sprachumfang einschließlich der Klassen- und Trie-Aufgaben. Unterstützte Lösungen werden an konkreten Eingaben ausgeführt. Nicht unterstützte gültige Java-Varianten erhalten keine Falschbewertung.':'';
+  $('assessmentNotice').classList.toggle('hidden',!$('assessmentNotice').textContent);
+  $('assessmentInfo').open=false;
+  hint=0;step=0;$('hintLevel').textContent='0 / 4';
+  $('helpText').innerHTML='<p>Nutze die Hilfen, wenn du einen Denkanstoß brauchst.</p>';
+  $('tests').innerHTML='<p>Noch keine Prüfung für diese Eingabe ausgeführt.</p>';
+  $('testDetails').open=false;
+  $('score').textContent=completed.has(t.id)?'bereits bestätigt':'noch nicht geprüft';
+  showFeedback('idle','',completed.has(t.id)?'Diese Aufgabe hast du bereits erfolgreich geprüft. Du kannst deinen Ansatz weiter erkunden.':'Entwickle deine Lösung und probiere sie mit „Lösung prüfen“ aus.');
+  $('step').disabled=!['java','operations'].includes(t.format);progress();visual('Beispielmodell');updateEditorLines();
+  $('storageNotice').textContent=LabStorage.temporary?'Speicherung ist im Browser gesperrt; Fortschritt bleibt nur für diese Sitzung erhalten.':'';
+}
+const specificTrees={
+  'Blätter zählen':[50,[30,[20],[40]],[70,[60]]],
+  'Preorder bestimmen':[50,[30,[20],[40]],[70]],
+  'Inorder bestimmen':[50,[30,[20],[40]],[70]],
+  'Postorder bestimmen':[50,[30,[20],[40]],[70]],
+  'Suchweg 65':[50,[30],[70,[60,null,[65]],[80]]],
+  'Suchbaum prüfen':[50,[30,null,[60]],[70]],
+  'Einfügeposition finden':[50,[30,[20],[40]],[70]],
+  'Entarteter Suchbaum':[10,null,[20,null,[30,null,[40,null,[50]]]]],
+  'Blatt löschen':[50,[30,[20],[40]],[70]],
+  'Knoten mit einem Kind löschen':[50,null,[70,[60]]],
+  'Inorder-Nachfolger bestimmen':[50,null,[80,[60,null,[70]]]]
+};
+function treeHTML(n){
+  if(!n)return '<div class="tree-empty">null</div>';
+  return `<div class="tree-branch"><span class="tn">${n[0]}</span>${n[1]||n[2]?`<div class="tree-children"><div><small>links ↙</small>${treeHTML(n[1])}</div><div><small>rechts ↘</small>${treeHTML(n[2])}</div></div>`:''}</div>`;
+}
+function visual(label){
+  const t=current();$('stepLabel').textContent=label;let html='';
+  if(['tree','bst','bst2','traversal'].includes(t.visual))html='<div class="treeviz">'+treeHTML(specificTrees[t.title]||[50,[30,[20],[40]],[70,[60],[80]]])+'</div>';
+  else if(t.visual==='trie')html='<div class="decision">Beispielschlüssel: 1234, 1257, 1289, 4312, 4355<br>Präfix 12 → 1234, 1257, 1289<br>Jede Ziffer steht für eine Kante; nach allen vier Ziffern folgt das Blatt.</div>';
+  else if(t.visual==='review')html='<div class="decision">Anforderung → Struktur<br>Undo → ?<br>FIFO → ?<br>Präfix → ?<br>Indexzugriff → ?<br>Schlüsselsuche → ?</div>';
+  else {const arr=t.start||[];html=(t.kind==='stack'?'<div class="refs">oben ↓</div>':t.kind==='list'?'<div class="refs">erster ↓</div>':'<div class="refs">vorne ↓ · hinten = letzter Knoten (bei leerer Queue null)</div>')+`<div class="chain">${arr.map(x=>`<span class="node">${safe(x)}</span>`).join('<span class="arrow">→</span>')}<span class="arrow">→ null</span></div>`;}
+  $('visualization').innerHTML=html;
+  const modelHints=['Das Modell illustriert die Aufgabe. Es ist keine Ausführung deines Codes.','Prüfe den Basisfall: Was geschieht bei einer leeren Struktur?','Verfolge die Reihenfolge der Zugriffe und erhalte benötigte Referenzen.','Vergleiche die Randfälle und die tatsächlichen Funktionstestergebnisse.'];
+  $('explain').textContent=modelHints[step];
+}
+function evaluate(){
+  const t=current(),r=Assessment.evaluate(t,$('code').value),ok=r.status==='correct';
+  const rows=[...r.tests].sort((a,b)=>Number(a.ok)-Number(b.ok));
+  $('tests').innerHTML=rows.length?rows.map(x=>`<div class="testrow"><span class="${x.ok?'pass':'fail'}">${x.ok?'✓':'↻'}</span><span>${safe(x.label)}</span></div>`).join(''):`<p>${safe(r.message)}</p>`;
+  $('score').textContent=r.tests.length?`${r.tests.filter(x=>x.ok).length} / ${r.tests.length} · ${statusLabels[r.status]}`:statusLabels[r.status];
+  showFeedback(r.status,feedbackTitles[r.status],r.message);
+  $('testDetails').open=r.status==='incorrect'&&r.tests.length>0;
+  if(ok)completed.add(t.id);else completed.delete(t.id);
+  drafts[t.id]=$('code').value;persist();progress();
+}
+$('code').addEventListener('input',()=>{
+  const t=current();drafts[t.id]=$('code').value;completed.delete(t.id);persist();progress();updateEditorLines();
+  $('score').textContent='Eingabe geändert';$('tests').innerHTML='<p>Prüfe deine geänderte Lösung noch einmal.</p>';
+  showFeedback('edited','','Deine Änderung ist gespeichert. Du kannst sie jetzt ausprobieren.');
+});
+$('code').addEventListener('scroll',()=>{$('lineNumbers').scrollTop=$('code').scrollTop;});
+$('code').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){e.preventDefault();evaluate();}});
+function openHelp(){if(!$('helpDialog').open)$('helpDialog').showModal();}
+function showHint(){
+  const t=current();if(hint<4)hint++;
+  $('hintLevel').textContent=`HINWEIS ${hint} VON 4`;$('helpTitle').textContent='Ein Denkanstoß';
+  $('helpText').innerHTML=`<pre>${safe(t.hints[hint-1])}</pre>`;
+  $('nextHint').classList.remove('hidden');$('nextHint').textContent=hint<4?'Nächster Hinweis →':'Musterlösung öffnen';openHelp();
+}
+function showSolution(){
+  const t=current();$('hintLevel').textContent='ZUM VERGLEICHEN';$('helpTitle').textContent='Musterlösung';
+  $('helpText').innerHTML=`<p>Vergleiche die Lösung mit deinem Ansatz. Welche Strukturidee steckt dahinter?</p><pre>${safe(t.solution)}</pre>`;
+  $('nextHint').classList.add('hidden');openHelp();$('closeHelp').focus({preventScroll:true});
+}
+$('hint').onclick=showHint;$('solution').onclick=showSolution;
+$('nextHint').onclick=()=>hint<4?showHint():showSolution();
+for(const id of ['closeHelp','closeHelpBottom'])$(id).onclick=()=>$('helpDialog').close();
+$('helpDialog').addEventListener('keydown',e=>{
+  if(e.key!=='Tab')return;
+  const controls=[...$('helpDialog').querySelectorAll('button:not([disabled]),a[href],input,textarea,select,[tabindex="0"]')].filter(el=>el.getClientRects().length);
+  if(!controls.length)return;
+  e.preventDefault();
+  const active=controls.indexOf(document.activeElement),target=active<0?(e.shiftKey?controls.length-1:0):(active+(e.shiftKey?-1:1)+controls.length)%controls.length;
+  controls[target].focus();
+});
+$('run').onclick=evaluate;
+$('reset').onclick=()=>{delete drafts[current().id];completed.delete(current().id);persist();render();$('code').focus();};
+$('step').onclick=()=>{step=(step+1)%4;visual(['Beispielmodell','Strukturhinweis 1','Strukturhinweis 2','Strukturhinweis 3'][step]);};
+function focusTask(){ $('title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'}); }
+function move(dir){
+  const v=visible(),target=v.indexOf(current())+dir;
+  if(target<0||target>=v.length)return;
+  index=tasks.indexOf(v[target]);render();focusTask();
+}
+$('prev').onclick=()=>move(-1);
+$('next').onclick=()=>{
+  if(visible().indexOf(current())<visible().length-1){move(1);return;}
+  const next=filter==='all'?null:chapterOrder[chapterOrder.indexOf(filter)+1];
+  if(next)document.querySelector(`.tab[data-filter="${next}"]`).click();
+  else document.querySelector('.diag-tab[data-diagnostic="end"]').click();
+};
+$('taskSelect').onchange=e=>{const selected=visible().find(t=>t.id===e.target.value);if(selected){index=tasks.indexOf(selected);render();}};
+chapterButtons.forEach(b=>b.onclick=()=>{
+  $('diagnostic').classList.add('hidden');$('labMain').classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(x=>{x.classList.remove('active');x.removeAttribute('aria-current');});
+  b.classList.add('active');filter=b.dataset.filter;
+  const v=visible();if(v.length)index=tasks.indexOf(v[0]);
+  $('chapterMenu').open=false;render();focusTask();
+});
+function placeChapterMenu(){
+  const menu=$('chapterMenu').querySelector('.chapter-options');
+  if(matchMedia('(max-width:699px)').matches){const top=$('chapterMenu').getBoundingClientRect().bottom+8;menu.style.top=top+'px';menu.style.maxHeight=Math.max(150,innerHeight-top-16)+'px';}
+  else {menu.style.top='';menu.style.maxHeight='';}
+}
+$('chapterMenu').addEventListener('toggle',placeChapterMenu);
+document.addEventListener('pointerdown',e=>{if(!$('chapterMenu').contains(e.target))$('chapterMenu').open=false;});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape'||$('helpDialog').open)return;
+  if($('chapterMenu').open){$('chapterMenu').open=false;$('chapterMenu').querySelector('summary').focus();}
+  else if(compactMethods.matches&&$('methodsDetails').open){$('methodsDetails').open=false;$('methodsDetails').querySelector('summary').focus();}
+});
+function fitMethods(){ $('methodsDetails').open=!compactMethods.matches; }
+compactMethods.addEventListener('change',fitMethods);window.addEventListener('resize',placeChapterMenu);fitMethods();render();

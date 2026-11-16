@@ -1,31 +1,45 @@
-# V5.2 – Methodenverzeichnis
+# Lernlabor Datenstrukturen Q1.4
 
-Links neben Aufgabe und Editor steht ein aufgabenbezogenes, beim Scrollen sichtbares Methodenverzeichnis. Es zeigt Signaturen, Kurzbeschreibungen und Aufrufbeispiele sowie gesondert die selbst zu entwickelnden Methoden. Auf schmalen Geräten erscheint es oberhalb der Aufgabe.
+Statisches Lernlabor mit allen 64 Lernstationen, Startcheck (7 Aufgaben), Kompetenzcheck (7 Aufgaben), Methodenverzeichnis, gestuften Hilfen und gespeichertem Lernfortschritt. Die Oberfläche nutzt ein kompaktes, helles Layout in Blau und Türkis. Aufgaben und Kapitel bleiben vollständig erhalten.
 
-Alle 33 Stationen und die Wiki-Reihenfolge bleiben erhalten. Bestehende lokale Arbeitsstände und Exportdateien sind kompatibel. Methodenwechsel und unveränderte Aufgaben wurden automatisch geprüft. Eine visuelle Browserprüfung war mangels Browser nicht möglich.
+Die Bewertung unterscheidet **korrekt**, **fachlich falsch**, **unvollständig**, **Eingabeformat fehlerhaft** und **nicht automatisch bewertbar**.
 
-# Lernlabor Q1.4 – V5.1 parallel zum Wiki
+- **39 Java-Stationen:** Ausführung eines begrenzten Java-Sprachumfangs über Lexer, Syntaxbaum, Typprüfung und konkrete Funktionstests, einschließlich Klassen, Konstruktoren und Trie-Operationen. Kein Textvergleich, keine Schlüsselwortbewertung und keine Ausführung des Eingabetextes als JavaScript.
+- **24 Kurzantworten:** eigene Prüfer für Zahlen, Big-O, geordnete Folgen, Mengen, Entscheidungen und Fachbegriffe.
+- **Eine Operationsfolge:** Prüfung aller acht Schritte und der Queue-Zwischenzustände.
+- **Alle sieben früher ausgeschlossenen Klassen-/Trie-Stationen sind funktional prüfbar.** Unbekannte Java-Erweiterungen bleiben neutral; keine pauschale manuelle Ausnahme mehr.
 
-Verbindliche Ausgangsbasis: lernlabor-datenstrukturen-q1-4-navigation(1).zip.
+Die beiden gemeldeten Lösungen zum Blätterzählen und zur Baumhöhe bestehen die funktionale Prüfung. Methodenrümpfe, vollständige Methoden, Hilfsvariablen, andere Parameternamen und unterstützte alternative Kontrollstrukturen sind möglich. Java außerhalb des dokumentierten Sprachumfangs erhält eine neutrale Rückmeldung.
 
-Die 28 ursprünglichen Stationen behalten Reihenfolge, Themenzuordnung, Wiki-Verweise, Titel, Aufgabenstellungen und Codevorlagen. „Alle Wiki-Stationen“ und die Themenreiter enthalten ausschließlich diese Stationen. Fünf ergänzende Aufgaben stehen getrennt unter „Zusatzaufgaben (optional)“; sie sind keine zusätzlichen Wiki-Pflichtaufgaben. Start- und Abschlusscheck bleiben separat. Die Übereinstimmung wurde mit der gelieferten ZIP geprüft; die Wiki-Seiten selbst lagen nicht vor.
+## Lokal verwenden
 
-33 Stationen mit freier Navigation. index.html öffnen oder alle Dateien gemeinsam in GitHub Pages bereitstellen. Keine Installation, keine externen Abhängigkeiten.
+`index.html` im Browser öffnen oder den Ordner mit einem statischen Webserver bereitstellen. Entwürfe, bestätigte Lösungen und Diagnoseprofile werden im Browser gespeichert. Falls der Browser die Speicherung sperrt, bleibt die Anwendung nutzbar und zeigt einen Hinweis zur Speicherung nur innerhalb der Sitzung.
 
-## Neu
-- Automatische lokale Speicherung der Codeeingaben und Hilfestufe je Station.
-- JSON-Export und Import des Arbeitsstands einschließlich Diagnoseprofilen.
-- Kommentarbereinigung und Reihenfolgeprüfung für Traversierungen; alle Musterlösungen der automatisch geprüften Aufgaben erfüllen die Prüfungen.
-- Dynamische Modellabläufe für grundlegende Listenoperationen, Stack/Queue-Operationen, Traversierungen und Suchpfad. Gelb: aktiver Knoten; grün: bereits besucht.
-- Grundlagenreflexion, Postorder, Baumhöhe mit Effizienzvergleich, Sammeln von Präfixtreffern und LK-Transferaufgabe (20 Punkte) mit Erwartungshorizont.
-- Diagnosebewertung korrigiert; zusätzlicher Startimpuls zu Algorithmen. Pakete können auch per Antippen oder Tastatur verschoben werden.
+## Tests und Dokumentation
 
-## Einsatzhinweise
-Die Strukturprüfung führt keinen Java-Code aus und ersetzt weder Compiler noch Verhaltenstests. Auch bei vorhandenen Mustern können logische Fehler bestehen. Die Modellabläufe zeigen einen vorgegebenen fachlichen Ablauf unabhängig vom eingegebenen Code. Für nicht unterstützte Stationen wird dies ausdrücklich angezeigt. Offene Aufgaben werden anhand der Musterlösung selbst oder durch die Lehrkraft bewertet.
+Die [UI/UX-Überarbeitung](docs/UI-UEBERARBEITUNG.md) dokumentiert die neue Bedienung, geprüfte Bildschirmgrößen und Screenshots. Kapitel werden über „Dein Lernweg“ gewählt; die Aufgabenwahl zeigt Position und Bearbeitungsstand. Das Methodenverzeichnis bleibt links und lässt sich auf Tablets und Handys bei Bedarf öffnen. Hinweise und Musterlösungen stehen im Dialog bereit. Im Editor prüft auch `⌘/Strg + Enter`; `Tab` verlässt das Eingabefeld.
 
-Die Diagnose liefert kurze Stichproben. Unterschiedliche Aufgabenformate und nur eine Abschlussfrage pro Kompetenz erlauben keine belastbare Messung des gesamten Kompetenzzuwachses. Ein fehlender Startwert wird als nicht erhoben angezeigt. Vorhandene alte Diagnoseprofile können über die Diagnoseansicht zurückgesetzt werden.
+Node.js ab Version 22 genügt; keine npm-Pakete müssen installiert werden.
 
-Arbeitsstände bleiben im jeweiligen Browserprofil und auf diesem Gerät; für Gerätewechsel Export/Import nutzen. Browserdaten-Löschen entfernt gespeicherte Ergebnisse. Der Fortschrittsbalken bezeichnet die Position in der Aufgabenfolge, nicht den fachlichen Lernerfolg.
+```sh
+npm test
+npm run audit
+npm run test:browser
+```
 
-## Prüfung dieser Fassung
-JavaScript-Syntaxprüfung aller Skripte; automatisierte Logikprüfung für Wiederherstellung der Eingaben, Musterlösungen, falsche Traversierungsreihenfolge, auskommentierte Lösungen und veränderte Modellzustände. Eine vollständige visuelle Browserprüfung konnte in der Erstellungsumgebung mangels installiertem Browser nicht durchgeführt werden.
+Der Browsertest verwendet den installierten Chrome, startet einen lokalen HTTP-Server und legt Berichte/Screenshots in `tests/artifacts/` ab. Auf anderen Systemen kann `Q14_CHROME` auf die Chrome-/Chromium-Programmdatei gesetzt werden. Bei eingeschränkten Ausführungsrechten benötigt der Browserstart eine Freigabe.
+
+- [Vollständige Prüfung aller 78 Aufgaben](docs/AUFGABENPRUEFUNG.md)
+- [Maschinenlesbare Prüfübersicht](docs/pruefuebersicht.json)
+- [24 Fehler- und Lückengruppen](docs/FEHLERPROTOKOLL.md)
+- [Prüfstrategie, Sprachumfang und Einschränkungen](docs/BEWERTUNG.md)
+- [Abschlussbericht und geänderte Dateien](docs/ABSCHLUSSBERICHT.md)
+- [Aktueller Reparaturbericht: sieben bisher manuelle Aufgaben](docs/MANUELLE-PRUEFUNG-REPARATUR.md)
+
+Alle 64 Lernstationen besitzen bestandene Funktionstests bzw. formatbezogene Tests mit Referenz, Alternative und Falschversuch. Die Java-Prüfung umfasst 721 konkrete Struktur-/Operationsfälle je Referenzdurchlauf. Sie ist kein vollständiger Java-Compiler: Java außerhalb des dokumentierten Sprachumfangs bleibt ausdrücklich unbewertet. Lokal ist weiterhin kein JDK verfügbar; eine Kompilierung mit javac ist nicht bestätigt.
+
+## GitHub Pages
+
+Die Anwendung besteht aus HTML, CSS und klassischen JavaScript-Dateien mit relativen Pfaden. Sie benötigt weder Backend noch Buildschritt, CDN oder externe Laufzeitabhängigkeiten. Alle Dateien im Projektstamm gehören zur Anwendung. `docs/`, `tests/` und `package.json` dienen der lokalen Prüfung und Dokumentation.
+
+Es wurde kein Push und kein Deployment ausgeführt.

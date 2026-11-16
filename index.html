@@ -1,9 +1,83 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lernlabor Datenstrukturen Q1.4</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div><span class="kicker">INFORMATIK · Q1.4</span><h1>Lernlabor Datenstrukturen</h1><p>verstehen · simulieren · programmieren · beurteilen</p></div><div class="progress"><span id="progressText"></span><div><i id="progressBar"></i></div></div></header>
-<nav aria-label="Themenbereiche – jederzeit frei wählbar"><button class="tab diag-tab" data-diagnostic="start">Startcheck</button><button class="tab active" data-filter="all">Alle Wiki-Stationen</button><button class="tab" data-filter="list">1.4.1 Listen</button><button class="tab" data-filter="stackqueue">1.4.2 Stack &amp; Queue</button><button class="tab" data-filter="tree">1.4.3 Binärbäume</button><button class="tab" data-filter="traversal">1.4.4 Traversierung</button><button class="tab" data-filter="bst">1.4.5 Suchbäume</button><button class="tab" data-filter="bst2">1.4.6 Verändern &amp; Effizienz</button><button class="tab" data-filter="trie">1.4.7 Trie</button><button class="tab" data-filter="review">Gesamtsicherung</button><button class="tab" data-filter="extra">Zusatzaufgaben (optional)</button><button class="tab diag-tab" data-diagnostic="end">Kompetenzcheck</button></nav><p class="navigation-help">Parallel zum Wiki: Wählen Sie den passenden Abschnitt und die dort genannte Aufgabennummer. Reihenfolge und Aufgabenbezeichnungen entsprechen der bisherigen Fassung. Zusätzliche Übungen finden Sie ausschließlich unter „Zusatzaufgaben (optional)“.</p>
-<section class="storage"><span id="saveStatus" role="status">Arbeitsstände werden auf diesem Gerät gespeichert.</span> <button id="exportWork">Arbeitsstand exportieren</button> <label class="import">Importieren <input id="importWork" type="file" accept=".json"></label></section><section id="diagnostic" class="diagnostic hidden"></section><main id="labMain"><aside class="card methods" aria-labelledby="methodsTitle"><h2 id="methodsTitle">Methodenverzeichnis</h2><p class="method-intro">Nachschlagen zur aktuellen Aufgabe</p><div id="methodContent"></div></aside><section class="card task"><div class="eyebrow" id="topic"></div><h2 id="title"></h2><div id="description"></div><label class="station-picker" for="stationSelect">Direkt zur Aufgabe<select id="stationSelect"></select></label><div class="tasknav"><button id="prev">← Zurück</button><button id="next">Weiter →</button></div></section>
-<section class="card editor"><div class="cardhead"><h2>Java-Editor</h2><span class="pill">Strukturprüfung · kein Java-Compiler</span></div><textarea id="code" spellcheck="false"></textarea><div class="actions"><button class="primary" id="run">▶ Prüfen</button><button id="step">›| Einzelschritt</button><button id="reset">↻ Zurücksetzen</button><button id="hint">? Hinweis</button><button id="solution">✓ Lösung anzeigen</button></div><div id="message" class="message muted"></div></section>
-<section class="card visual"><div class="cardhead"><h2>Strukturmodell</h2><span id="stepLabel" class="pill"></span></div><div id="visualization"></div><div id="explain" class="explain"></div></section>
-<section class="card tests"><div class="cardhead"><h2>Prüfung der Code-Struktur</h2><span id="score" class="pill"></span></div><div id="tests"></div></section>
-<section class="card help"><div class="cardhead"><h2>Gestufte Hilfen</h2><span id="hintLevel" class="pill">0 / 4</span></div><div id="helpText"></div></section></main>
-<footer>Begleitendes Lernlabor zu Q1.4 · Die Umgebung prüft gezielt die für die Wiki-Aufgaben relevanten Java-Strukturen und Algorithmen.</footer><script src="app.js"></script><script src="extras.js"></script><script src="diagnose.js"></script><script src="simulation.js"></script><script src="methods.js"></script></body></html>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#edf5f5">
+  <title>Lernlabor Datenstrukturen Q1.4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#title">Direkt zur Aufgabe</a>
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <div><span class="kicker">INFORMATIK · Q1.4</span><h1>Lernlabor Datenstrukturen</h1></div>
+  </div>
+  <div class="progress">
+    <div class="progress-heading"><span>Dein Fortschritt</span><strong id="progressText"></strong></div>
+    <div id="progressTrack" class="progress-track" role="progressbar" aria-label="Automatisch bestätigte Aufgaben" aria-valuemin="0" aria-valuemax="64" aria-valuenow="0"><i id="progressBar"></i></div>
+  </div>
+</header>
+<nav class="learning-nav" aria-label="Kapitel und Lernchecks">
+  <div class="chapter-control"><span class="nav-caption">Dein Lernweg</span>
+    <details id="chapterMenu" class="chapter-menu">
+      <summary><span id="chapterLabel">Alle Aufgaben</span><span class="chevron" aria-hidden="true">⌄</span></summary>
+      <div class="chapter-options">
+        <p class="menu-heading">Kapitel auswählen <span>bestätigt / gesamt</span></p>
+        <button class="tab active" data-filter="all">Alle Aufgaben</button>
+        <button class="tab" data-filter="list">1.4.1 Lineare Listen</button>
+        <button class="tab" data-filter="stackqueue">1.4.2 Stack &amp; Queue</button>
+        <button class="tab" data-filter="tree">1.4.3 Binärbäume</button>
+        <button class="tab" data-filter="traversal">1.4.4 Traversierungen</button>
+        <button class="tab" data-filter="bst">1.4.5 Binäre Suchbäume</button>
+        <button class="tab" data-filter="bst2">1.4.6 Verändern &amp; Effizienz</button>
+        <button class="tab" data-filter="trie">1.4.7 Trie – Präfixbäume</button>
+        <button class="tab" data-filter="review">Gesamtsicherung</button>
+      </div>
+    </details>
+  </div>
+  <div class="diagnostic-nav"><button class="tab diag-tab" data-diagnostic="start"><span class="check-dot" aria-hidden="true"></span>Startcheck</button><button class="tab diag-tab" data-diagnostic="end"><span class="check-dot end" aria-hidden="true"></span>Kompetenzcheck <span aria-hidden="true">↗</span></button></div>
+</nav>
+<section id="diagnostic" class="diagnostic hidden" aria-label="Lerncheck"></section>
+<main id="labMain">
+  <aside class="methods card" aria-label="Methodenverzeichnis">
+    <div class="methods-heading"><span class="eyebrow">ZUM NACHSCHLAGEN</span><h2>Methodenverzeichnis</h2><p>Klassen und Signaturen für deine Aufgabe.</p></div>
+    <details id="methodsDetails" open>
+      <summary><span>Methoden &amp; Klassen</span><span class="pill" id="methodsTopic"></span></summary>
+      <div id="methodsContent"></div>
+    </details>
+  </aside>
+  <div class="workspace">
+    <section class="task" aria-labelledby="title">
+      <div class="task-location"><span id="topic" class="eyebrow"></span><span id="taskStatus" class="task-status"></span></div>
+      <div class="task-heading"><h2 id="title" tabindex="-1"></h2><div class="task-picker"><label for="taskSelect">Aufgabe wechseln</label><select id="taskSelect"></select></div></div>
+      <div class="competency"><span aria-hidden="true">◎</span> Du übst: <span id="competencyText"></span></div>
+      <div id="description"></div>
+    </section>
+    <section class="editor" aria-label="Lösung entwickeln und prüfen">
+      <div class="cardhead"><h2>Deine Lösung</h2><button id="reset" class="quiet-button" title="Vorlage wiederherstellen"><span aria-hidden="true">↺</span> Zurücksetzen</button></div>
+      <p id="inputFormat" class="input-format"></p>
+      <div class="code-frame">
+        <div id="signaturePanel" class="signature-panel hidden"><span class="source-label">Methodenrahmen · zur Orientierung</span><pre id="codeSignature" class="signature hidden"></pre></div>
+        <div class="code-toolbar"><span id="sourceLabel">Deine Eingabe</span><span id="editorLanguage">Java</span></div>
+        <div class="code-input"><pre id="lineNumbers" class="line-numbers" aria-hidden="true">1</pre><label for="code" class="sr-only">Lösung eingeben</label><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="inputFormat assessmentNotice editorShortcut" wrap="off"></textarea></div>
+        <code id="closingBrace" class="closing-brace hidden" aria-hidden="true">}</code>
+      </div>
+      <div class="editor-tools"><div class="help-buttons"><button id="hint" class="quiet-button"><span aria-hidden="true">?</span> Hinweis</button><button id="solution" class="quiet-button">Musterlösung</button></div><span id="editorShortcut" class="shortcut">⌘ / Strg + Enter zum Prüfen</span></div>
+      <details id="assessmentInfo" class="assessment-info"><summary><span id="assessmentMode"></span><span>So wird geprüft <span aria-hidden="true">⌄</span></span></summary><p id="assessmentNotice" class="muted hidden"></p></details>
+      <div class="tasknav"><button id="prev" class="back-button">← Zurück</button><button class="primary run-button" id="run"><span aria-hidden="true">▷</span> Lösung prüfen</button><button id="next" class="next-button">Weiter <span aria-hidden="true">→</span></button></div>
+      <div id="message" class="message muted" role="status" aria-live="polite"></div>
+      <p id="storageNotice" class="storage-notice" role="status"></p>
+    </section>
+    <div class="support-grid">
+      <details class="visual support-panel" id="modelDetails"><summary><span>Strukturmodell</span><span class="support-meta" id="stepLabel"></span></summary><div class="support-content"><div id="visualization"></div><p id="explain" class="explain"></p><button id="step" class="quiet-button">Nächster Strukturhinweis →</button></div></details>
+      <details class="tests support-panel" id="testDetails"><summary><span>Prüfung im Detail</span><span class="support-meta" id="score"></span></summary><div id="tests" class="support-content"></div></details>
+    </div>
+  </div>
+</main>
+<dialog id="helpDialog" aria-labelledby="helpTitle"><section class="help"><div class="dialog-head"><div><span class="eyebrow" id="hintLevel">0 / 4</span><h2 id="helpTitle">Ein Denkanstoß</h2></div><button id="closeHelp" class="icon-button" aria-label="Hinweise schließen">×</button></div><div id="helpText" class="dialog-content"></div><div class="dialog-actions"><button id="closeHelpBottom">Zur Aufgabe</button><button id="nextHint" class="next-button">Nächster Hinweis →</button></div></section></dialog>
+<footer>Lernlabor Q1.4 <span>·</span> verstehen, ausprobieren, weiterlernen <span>·</span> Fortschritt wird in diesem Browser gespeichert.</footer>
+<script src="storage.js"></script><script src="java-subset.js"></script><script src="functional-cases.js"></script><script src="java-classes.js"></script><script src="class-cases.js"></script><script src="trie-cases.js"></script><script src="assessment.js"></script><script src="tasks.js"></script><script src="app.js"></script><script src="diagnostic-model.js"></script><script src="diagnose.js"></script>
+</body>
+</html>
